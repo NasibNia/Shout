@@ -1,0 +1,9 @@
+.homepage{
+    background-image: url('../images/pic1.png');
+
+    height: 200vh;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+}
