@@ -5,12 +5,13 @@ module.exports = function(app){
     //gettig all the shouts + the name of people who shouted or joined them
     app.get("/api/shouts", function(req,res){
         db.Shout.findAll({
-            include : [{
-                model : db.User
-            }]
+            // include : [{
+            //     model : db.User
+            // }]
         }, function(dbShout){
             console.log("dbShout is " , dbShout);
-            res.render("map" , {allShouts : dbShout});
+            res.json(dbShout);
+            // res.render("map" , {allShouts : dbShout});
         });
     });
 
@@ -26,9 +27,8 @@ module.exports = function(app){
     });
     
     app.post("/api/shouts", function(req, res){
-        db.Shout.create({
-            body:req.body.body
-        }).then(function(dbShout){
+        console.log("req.body of this group is   ", req.body);
+        db.Shout.create(req.body).then(function(dbShout){
             db.UserShout.create({
                 UserId : req.body.UserId,
                 ShoutId : dbShout.dataValues.id

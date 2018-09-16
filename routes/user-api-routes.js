@@ -10,6 +10,7 @@ module.exports = function(app){
       }]
 
     }).then(function(dbUser){
+      // console.log("dbUser   ", dbUser);
       res.json(dbUser);
     });
   });
@@ -20,7 +21,7 @@ module.exports = function(app){
     // a join to include all of the users shouts 
     db.User.findOne({
       where : {
-        id : req.body.id
+        id : req.params.id
       }
     }).then(function(dbUser){
       res.json(dbUser);
@@ -31,6 +32,9 @@ module.exports = function(app){
     //add a new user : happens in login
     console.log("A new user being added!");
     db.User.create(req.body).then(function(dbUser){
+      console.log("added user");
+      // sends back the id of new inserted object into data base
+      console.log("dbUser   inside server  " , dbUser);
       res.json(dbUser);
     });
   });
