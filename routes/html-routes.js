@@ -4,9 +4,11 @@ module.exports = function(app){
     });
 
     app.get("/logIn" , function(req,res){
-
-        console.log("in /logIn server")
         res.render("logIn",{});
+    });
+
+    app.get("/map" , function(req,res){
+        res.render("map",{});
     });
 
 

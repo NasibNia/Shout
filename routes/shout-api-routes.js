@@ -9,7 +9,8 @@ module.exports = function(app){
                 model : db.User
             }]
         }, function(dbShout){
-            res.json(dbShout);
+            console.log("dbShout is " , dbShout);
+            res.render("map" , {allShouts : dbShout});
         });
     });
 

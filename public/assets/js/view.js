@@ -31,16 +31,28 @@ $(document).ready(function(){
 
         if ($(this).val() === "signIn"){
             //go to database and 
-            
-
-
+            getToAction();
 
         } else{
             //do the sign Up, add the user 
         }
     });
   
+    function getToAction(){
+        $.get("/map" , function(data){
+            console.log(data);
+            window.location.href = "/map";
+        });
+    }
 
+    $('#shout').on('click', function(event){
+        
+    });
 
+    $('#see-shouts').on('click', function(event){
+        $.get("/api/shouts", function(data){
+
+        });
+    });
 
 });
