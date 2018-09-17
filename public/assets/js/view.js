@@ -17,6 +17,8 @@ $(document).ready(function(){
     $(document).on('submit' , '#login-form' , function(event){
         event.preventDefault();
 
+        // getShouts();
+
         usernameInput = $('#username-id').val().trim();
         passwordInput = $('#password-id').val().trim();
     
@@ -32,8 +34,8 @@ $(document).ready(function(){
 
 
         $.post("/api/users" , userInfo, getCurrentUserId);
-        console.log("currentUserId    end of start" , currentUserId);
-        console.log("userInfo    ",userInfo);
+        // console.log("currentUserId    end of start" , currentUserId);
+        // console.log("userInfo    ",userInfo);
         }
     });
     function getCurrentUserId(){
@@ -45,15 +47,16 @@ $(document).ready(function(){
                 if (results[i].name === usernameInput && results[i].password === passwordInput){
                     console.log("curent user id is  ", results[i].id);
                     currentUserId = results[i].id;
+                    // ;
                     return currentUserId;
        
                 }
             }
         });
-
-        $.get("/api/users/user_id=:id" , function(){
+        $.get("/api/users/user_id=:id" , function(res){
             window.location.href = "/api/users/user_id="+currentUserId;
             console.log("after .getmap   ", currentUserId);
+            getShouts(currentUserId);
         });
     }
 //==============================================================
@@ -68,13 +71,15 @@ $(document).ready(function(){
         console.log("url is  " , url);
         if (url.indexOf("user_id=") !== -1) {
             userId = url.split("=")[1];
-            getShouts(userId);
             var newShout = {
                 UserId : parseInt(userId),
                 body : $('#shoutInput').val().trim()
             };
             console.log("new shout is " , newShout);
-            makeNewShout(newShout);
+            
+            makeNewShout(newShout,userId);
+
+            
         } else{
             getShouts();
         }         
@@ -85,7 +90,7 @@ $(document).ready(function(){
         
     // });
 
-    function makeNewShout(newShout){
+    function makeNewShout(newShout,id){
         console.log("newShout isisde makeNew shout  ", newShout);
         $.ajax({
             method : "POST",
@@ -93,7 +98,7 @@ $(document).ready(function(){
             data    : newShout
         }).then(function(){
             console.log("after makeNewShout ");   
-            getShouts();    
+            getShouts(id);    
 
         });
     }
@@ -111,11 +116,13 @@ $(document).ready(function(){
         if(userId){
             userId = "/user_id="+userId;
         }
+        console.log("userId   "+ userId);
         $.get("/api/shouts"+userId,function(results) {
-            console.log("all shouts info from api is    " , results );
-            window.location.href = "/api/shouts"+userId;
-            return results;
+            // console.log("all shouts info from api is    " , results );
+            
+            // return results;
         });
+        window.location.href = "/api/shouts"+userId;
     }
 
     
