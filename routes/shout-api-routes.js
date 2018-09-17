@@ -4,14 +4,22 @@ module.exports = function(app){
     
     //gettig all the shouts + the name of people who shouted or joined them
     app.get("/api/shouts", function(req,res){
-        db.Shout.findAll({
-            // include : [{
-            //     model : db.User
-            // }]
-        }, function(dbShout){
+        console.log('trying to get posts');
+        var query = {};
+        if (req.query.user_id) {
+        query['id'] = req.query.user_id;
+        console.log('search for a specific user only');
+        // console.log(query)
+        }db.Shout.findAll({
+            include : [{
+                where: query,
+                model : db.User
+            }]
+        }).then(function(dbShout){
+            console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyy\n\n");
             console.log("dbShout is " , dbShout);
             res.json(dbShout);
-            // res.render("map" , {allShouts : dbShout});
+            res.render("map" , {allShouts : dbShout});
         });
     });
 
@@ -28,7 +36,9 @@ module.exports = function(app){
     
     app.post("/api/shouts", function(req, res){
         console.log("req.body of this group is   ", req.body);
-        db.Shout.create(req.body).then(function(dbShout){
+        db.Shout.create({
+            body : req.body.body
+        }).then(function(dbShout){
             db.UserShout.create({
                 UserId : req.body.UserId,
                 ShoutId : dbShout.dataValues.id

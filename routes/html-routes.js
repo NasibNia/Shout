@@ -7,14 +7,4 @@ module.exports = function(app){
         res.render("logIn",{});
     });
 
-    app.get("/map" , function(req,res){
-        res.render("map",{});
-    });
-
-
-
-
-
-
-
 };

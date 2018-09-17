@@ -17,14 +17,15 @@ module.exports = function(app){
 
   // each user has a location , which is varient and needs to be updated 
 
-  app.get("/api/users/:id", function(req,res){
+  app.get("/api/users/user_id=:id", function(req,res){
     // a join to include all of the users shouts 
     db.User.findOne({
       where : {
         id : req.params.id
       }
     }).then(function(dbUser){
-      res.json(dbUser);
+      // res.json(dbUser);
+      res.render("map", {all:dbUser});
     });
   });
 
