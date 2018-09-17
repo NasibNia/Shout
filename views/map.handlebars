@@ -17,16 +17,24 @@
 
                     <button type="submit" class="btn btn-primary todo-btn" id="shout">Shout!</button>
                 </form>
-                <button type="submit" class="btn btn-primary todo-btn" id="see-shouts">See Shouts!</button>  
+                {{!-- <button type="submit" class="btn btn-primary todo-btn" id="see-shouts">See Shouts!</button>   --}}
             </div>
-            <div class="row">  Shouts Around you
+            <div class="row">  
 
-               {{#each allShouts}} 
-               <ul>
-                   <li>{{this.body}}</li>
-               </ul>
-               {{/each}}
-
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title">Shouts Around you</h5>
+                    {{#each allShouts}} 
+                        <div class="alert alert-primary" role="alert">
+                            <li>{{this.body}}</li> 
+                            <button class="btn btn-success ">Join</button>
+                            <button class="btn btn-primary" id="{{this.count}}"></button>
+                        </div>
+                    {{/each}}
+                    
+                </div>
+                </div>
+                
             </div>
         </div>
     </div>
