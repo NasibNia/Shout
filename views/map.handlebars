@@ -9,11 +9,11 @@
                 <a href="#" class="btn btn-primary">zoomIn/out</a>
             </div> --}}
         </div>
-        <div id="label">
+        {{!-- <div id="label">
        {{#each allShouts}} 
             {{this.body}}
         {{/each}}
-        </div>
+        </div> --}}
         </div>
         <div class="col-md">
             <div class="row">
@@ -22,34 +22,51 @@
 
                     <button type="submit" class="btn btn-primary todo-btn" id="shout">Shout!</button>
                 </form>
+                
                 <button type="submit" class="btn btn-primary todo-btn" id="see-shouts">See Shouts!</button>  
             </div>
             <div class="row">  Shouts Around you
-
+            <div id = "userPut">
                {{#each allShouts}} 
                <ul>
                    <li>
                        {{this.body}}
+                       {{!-- <button type="button" id="thumbsUp"><i class="fa fa-thumbs-up"></i><div id="container">
+                        </div></button>
+                       <button type="button" id="thumbsDown"><i class="fa fa-thumbs-down"></i></button> --}}
                    </li>
                </ul>
                {{/each}}
-
+            </div>
             </div>
         </div>
     </div>
 </div>
 
+{{!-- var total1 = 0;
+var total2 = 0;
+$("#thumbsUp").click(function()
+{
+    console.log(total1);
+    total1++;
+    return 
+}); --}}
 {{!-- would be cool if we can automatically load the shouts on the map based on the zoomIn/out --}}
 {{!-- =======takes the current location and post their shout on the icon --}}
 {{!-- Note did not know where to put this in the rest of the code so I just added it here --}}
 {{!-- Wait for it to load a little based on wifi and it will find your location --}}
 <script> 
+var labels = [];
+var c = document.getElementById("userPut");
+labels.push(c);
+console.log(labels);
+
     var map, popup, Popup;
 var map;
 function initMap() {
   map = new google.maps.Map(document.getElementById('maps'), {
     center: {lat:37.7650, lng:-122.45},
-    zoom: 12.43
+    zoom: 12
   });
   var infowindow = new google.maps.InfoWindow();
 
@@ -66,11 +83,19 @@ navigator.geolocation.getCurrentPosition(function(position)
   });
    google.maps.event.addListener(marker, 'click', (function(marker, i) {
     return function() {
-    infowindow.setContent(document.getElementById('label'));
+    infowindow.setContent(labels[0].innerText);
     infowindow.open(map, marker);
     }
     })(marker, i));
-})
+    setTimeout(function () {
+        marker.setMap(null);
+        delete marker;
+        
+    }, 10000);
+    return marker;
+
+});
+
 } 
     </script>
 {{!-- ===========================================================================   --}}
