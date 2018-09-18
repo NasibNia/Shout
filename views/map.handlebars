@@ -1,16 +1,21 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
-            <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="#" alt="Card image cap">
+        <div class="col-md">
+            <div class="card" style="width: 30rem;" id="maps">
+            {{!-- <img class="card-img-top" src="#" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Map Sits here</h5>
                 <p class="card-text">some text</p>
                 <a href="#" class="btn btn-primary">zoomIn/out</a>
-            </div>
+            </div> --}}
+        </div>
+        <div id="label">
+       {{#each allShouts}} 
+            {{this.body}}
+        {{/each}}
         </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md">
             <div class="row">
                 <form class="form-inline" id="todo-form">
                     <input type="text" class="form-control mb-2 mr-sm-2" id="shoutInput" placeholder="Shout something here">
@@ -23,7 +28,9 @@
 
                {{#each allShouts}} 
                <ul>
-                   <li>{{this.body}}</li>
+                   <li>
+                       {{this.body}}
+                   </li>
                </ul>
                {{/each}}
 
@@ -32,7 +39,46 @@
     </div>
 </div>
 
-
 {{!-- would be cool if we can automatically load the shouts on the map based on the zoomIn/out --}}
+{{!-- =======takes the current location and post their shout on the icon --}}
+{{!-- Note did not know where to put this in the rest of the code so I just added it here --}}
+{{!-- Wait for it to load a little based on wifi and it will find your location --}}
+<script> 
+    var map, popup, Popup;
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('maps'), {
+    center: {lat:37.7650, lng:-122.45},
+    zoom: 12.43
+  });
+  var infowindow = new google.maps.InfoWindow();
 
+  var marker, i;
+navigator.geolocation.getCurrentPosition(function(position)
+{
+    pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    };
+      marker = new google.maps.Marker({
+      map: map,
+      position: {lat: pos.lat, lng: pos.lng},
+  });
+   google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    return function() {
+    infowindow.setContent(document.getElementById('label'));
+    infowindow.open(map, marker);
+    }
+    })(marker, i));
+})
+} 
+    </script>
+{{!-- ===========================================================================   --}}
+    {{!-- for one location --}}
+    {{!-- marker = new google.maps.Marker({
+    map: map,
+    position: {lat: 37.766, lng: -122.46},
 
+}); --}}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCxMhwqVnzuWIkanMZKlN6nAXkn_x7YbM&callback=initMap">
+</script>
