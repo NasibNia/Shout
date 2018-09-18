@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes){
             //     //     )
             // }
         },
-        password: {
+        email: {
             type : DataTypes.STRING,
             // validate : {
             //     len: {
@@ -29,17 +29,17 @@ module.exports = function(sequelize, DataTypes){
             //         msg : 'password should contain only numbers and alphabets'
             //     }
             // }
-        },
-        location : DataTypes.STRING
-    }, {
-        instanceMethods: {
-          generateHash: function (password) {
-            return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-          },
-          validPassword: function (password) {
-            return bcrypt.compareSync(password, this.password);
-          }
         }
+    //     {
+    //     instanceMethods: {
+    //       generateHash: function (password) {
+    //         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    //       },
+    //       validPassword: function (password) {
+    //         return bcrypt.compareSync(password, this.password);
+    //       }
+    //     }
+    // }
     });
 
     User.associate = (models) => {

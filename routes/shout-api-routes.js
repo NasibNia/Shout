@@ -3,14 +3,8 @@ var db  = require("../models");
 module.exports = function(app){
     
     //gettig all the shouts + the name of people who shouted or joined them
-    app.get("/api/shouts", function(req,res){
-        // console.log('trying to get posts');
-        // var query = {};
-        // if (req.query.user_id) {
-        // query['id'] = req.query.user_id;
-        // console.log('search for a specific user only');
-        // console.log(query)
-        // }
+    app.get("/shouts", function(req,res){
+
         db.Shout.findAll({
             include : [{
                 // where: query,
@@ -24,23 +18,25 @@ module.exports = function(app){
         });
     });
 
-    app.get("/api/shouts/user_id=:id", function(req,res){
+    // gets all shouts with user id
+    app.get("/shouts/:userid", function(req,res){
         // console.log(query)
         db.Shout.findAll({
-            include : [{
-                where: {id:req.params.id},
+            where: {id:req.params.userid},
+                include : [{
                 model : db.User
             }]
         }).then(function(dbShout){
             console.log("params\n\n");
             // console.log("dbShout is " , dbShout);
             // res.json(dbShout);
-            res.render("map" , {allShouts : dbShout});
+            res.render("myProfile" , {allShouts : dbShout});
         });
     });
     
-    app.get("/api/shouts/:id", function(req,res){
-        db.Shout.findOne({
+    // get specific shout from shoutid
+    app.get("/shouts/:shoutid", function(req,res){
+        db.Shout.findOne({ //test this
             where : {
                 id : req.params.id
             },
@@ -50,7 +46,8 @@ module.exports = function(app){
         });
     });
     
-    app.post("/api/shouts", function(req, res){
+    // create shout
+    app.post("/shouts", function(req, res){
         console.log("req.body of this group is   ", req.body);
         db.Shout.create({
             body : req.body.body
@@ -64,18 +61,19 @@ module.exports = function(app){
         });          
     });
 
-    app.put("/api/shouts/:id" , function(req,res){
-        db.Shout.update(
-            req.body,  
-            {where : {
-                id : req.params.id
-            }
-        }).then(function(dbShout){
-            res.json(dbShout);
-        });
-    });
+    // app.put("/shouts/:id" , function(req,res){
+    //     db.Shout.update(
+    //         req.body,  
+    //         {where : {
+    //             id : req.params.id
+    //         }
+    //     }).then(function(dbShout){
+    //         res.json(dbShout);
+    //     });
+    // });
 
-    app.delete("/api/shouts/:id" , function(req,res){
+    //delete shout
+    app.delete("/shouts/:id" , function(req,res){
         db.Shout.destroy({
             where : {
                 id : req.params.id
@@ -85,5 +83,4 @@ module.exports = function(app){
         });
     });
 };
-
 

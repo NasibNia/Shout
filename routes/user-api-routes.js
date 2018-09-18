@@ -17,7 +17,8 @@ module.exports = function(app){
 
   // each user has a location , which is varient and needs to be updated 
 
-  app.get("/api/users/user_id=:id", function(req,res){
+  // Get single user information
+  app.get("/users/:id", function(req,res){
     // a join to include all of the users shouts 
     db.User.findOne({
       where : {
@@ -25,22 +26,23 @@ module.exports = function(app){
       }
     }).then(function(dbUser){
       // res.json(dbUser);
-      res.render("map", {all:dbUser});
+      res.render("profile", {all:dbUser});
     });
   });
 
-  app.post("/api/users",function(req,res){
+  // Create new user
+  app.post("/users",function(req,res){
     //add a new user : happens in login
     console.log("A new user being added!");
     db.User.create(req.body).then(function(dbUser){
       console.log("added user");
       // sends back the id of new inserted object into data base
       console.log("dbUser   inside server  " , dbUser);
-      res.json(dbUser);
-    });
+      res.render("map", {all:dbUser});
+});
   });
 
-  app.delete("/api/users/:id", function(req,res){
+  app.delete("/users/:userid", function(req,res){
     db.User.destroy({
       where : {
         id : req.params.id

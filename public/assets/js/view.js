@@ -7,9 +7,9 @@ $(document).ready(function(){
 
     $("#start").on("click", function(event){
         // event.preventDefault();
-        $.get("/logIn" , function(data){
+        $.get("/shouts" , function(data){
             console.log(data);
-            window.location.href = "/logIn";
+            window.location.href = "/shouts";
         });    
     });
 
@@ -18,47 +18,48 @@ $(document).ready(function(){
         event.preventDefault();
 
         // getShouts();
-
-        usernameInput = $('#username-id').val().trim();
-        passwordInput = $('#password-id').val().trim();
+        userInfo = {
+            name : "Potato",
+            email: "potato@potato.com"
+        };
+        // usernameInput = $('#username-id').val().trim();
+        // passwordInput = $('#password-id').val().trim();
     
-        if (!usernameInput || !passwordInput) {
-            console.log("both fields are required to continue");
-            return;
-        } else{
-            userInfo = {
-                name : usernameInput,
-                password:passwordInput,
-                location: "SF"
-            };
+        // if (!usernameInput || !passwordInput) {
+        //     console.log("both fields are required to continue");
+        //     return;
+        // } else{
 
 
-        $.post("/api/users" , userInfo, getCurrentUserId);
+
+        $.post("/users" , userInfo, function(data) {
+            console.log(data);
         // console.log("currentUserId    end of start" , currentUserId);
         // console.log("userInfo    ",userInfo);
-        }
-    });
-    function getCurrentUserId(){
+        })
+    })
 
-        $.get("/api/users",function(results) {
-            console.log("all users info from api is    " , results );
-            console.log("userInfo      ",userInfo);
-            for(var i =0 ; i < results.length ; i++){
-                if (results[i].name === usernameInput && results[i].password === passwordInput){
-                    console.log("curent user id is  ", results[i].id);
-                    currentUserId = results[i].id;
-                    // ;
-                    return currentUserId;
+    // function getCurrentUserId(){
+
+    //     $.get("/api/users",function(results) {
+    //         console.log("all users info from api is    " , results );
+    //         console.log("userInfo      ",userInfo);
+    //         for(var i =0 ; i < results.length ; i++){
+    //             if (results[i].name === usernameInput && results[i].password === passwordInput){
+    //                 console.log("curent user id is  ", results[i].id);
+    //                 currentUserId = results[i].id;
+    //                 // ;
+    //                 return currentUserId;
        
-                }
-            }
-        });
-        $.get("/api/users/user_id=:id" , function(res){
-            window.location.href = "/api/users/user_id="+currentUserId;
-            console.log("after .getmap   ", currentUserId);
-            getShouts(currentUserId);
-        });
-    }
+    //             }
+    //         }
+    //     });
+    //     $.get("/api/users/user_id=:id" , function(res){
+    //         window.location.href = "/api/users/user_id="+currentUserId;
+    //         console.log("after .getmap   ", currentUserId);
+    //         getShouts(currentUserId);
+    //     });
+    // }
 //==============================================================
 
     /// these functions handle the map page events
@@ -66,41 +67,40 @@ $(document).ready(function(){
     $(document).on('submit','#todo-form' ,function(event){
 
         event.preventDefault();
-        var userId;
-        var url = window.location.href;
-        console.log("url is  " , url);
-        if (url.indexOf("user_id=") !== -1) {
-            userId = url.split("=")[1];
+ 
             var newShout = {
-                UserId : parseInt(userId),
+                UserId : 1,
                 body : $('#shoutInput').val().trim()
             };
             console.log("new shout is " , newShout);
             
-            makeNewShout(newShout,userId);
+            $.ajax({
+                method : "POST",
+                url     : "/shouts",
+                data    : newShout
+            }).then(function(data){
+                console.log("New shout created");   
+                    
+                location.reload();
 
-            
-        } else{
-            getShouts();
-        }         
+            });
+    
     });
 
-    // $('#see-shouts').on('click', function(event){
-    //     getShouts();
+    $('#see-shouts').on('click', function(event){
+        var id = getUserID();
+        $.get("/shouts/" + id, function(results) {
+            console.log("getting shouts from userID: " + id)
+        }).then(function(data){
+            window.location.href = "/myProfile";
+        })
+
+
         
-    // });
+    });
 
-    function makeNewShout(newShout,id){
-        console.log("newShout isisde makeNew shout  ", newShout);
-        $.ajax({
-            method : "POST",
-            url     : "/api/shouts",
-            data    : newShout
-        }).then(function(){
-            console.log("after makeNewShout ");   
-            getShouts(id);    
+    function makeNewShout(newShout){
 
-        });
     }
 
     function getUsers(){
@@ -117,14 +117,19 @@ $(document).ready(function(){
             userId = "/user_id="+userId;
         }
         console.log("userId   "+ userId);
-        $.get("/api/shouts"+userId,function(results) {
+        $.get("/shouts"+userId,function(results) {
             // console.log("all shouts info from api is    " , results );
             
             // return results;
         });
-        window.location.href = "/api/shouts"+userId;
+        window.location.href = "/shouts";
     }
 
     
 
 });
+
+function getUserID() {
+    // var email = profile.getEmail();
+    return 1;
+}

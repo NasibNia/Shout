@@ -3,8 +3,7 @@ module.exports = function(app){
         res.render("homepage",{});
     });
 
-    app.get("/logIn" , function(req,res){
-        res.render("logIn",{});
+    app.get("/profile", function(req, res){
+        res.render("profile",{});
     });
-
 };
