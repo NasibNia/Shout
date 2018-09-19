@@ -197,14 +197,16 @@ function onSignIn(googleUser) {
     // userInfo.email = profile.getEmail();
 
 
-    var email = userInfo.email;
+    var email = localStorage.getItem("email");
     $.get("/api/users/", function(results){
 
         console.log(results);
         var found = false;
         for (var i = 0; i < results.length; i++){
-
+            console.log(email)
+            console.log(results[i].email)
             if (results[i].email === email) {
+
 
                 console.log("User exists")
                 found = true;
@@ -229,7 +231,7 @@ function onSignIn(googleUser) {
             gapi.auth2.getAuthInstance().signOut()
 
             window.location.href = "/shouts";
-        })
+        }) 
     }
     })
         // gapi.auth2.getAuthInstance().signOut()
