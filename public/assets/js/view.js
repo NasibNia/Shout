@@ -232,5 +232,13 @@ function onSignIn(googleUser) {
         });
     }
     });
+
+
+    $(document).on('click', '.home-btn', function(event){
+        window.location.href = "/shouts";
+    });
+
+
+    
 }
   
