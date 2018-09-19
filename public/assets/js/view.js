@@ -141,30 +141,37 @@ $(document).ready(function(){
     // when a user wants to join someone elses shout: if the btn is set to join, by clicking on it it should toggle to update and increase the shout count by 1
     $('.stat-btn').on('click', function(event){
         
+        var updateShout = {};
         var status = $(this).attr('data-stat');
         console.log("status is " , status);
+        var id = $(this).attr('data-id');
+        console.log("id is " , id);
+        var count = $(this).attr('data-count');
+
         // if stat = false meaning the user hasn't joined this shout yet
         // we get the shout id, update the count of that shout, and reload the page
-        //
         if (status === "false") {
-            var id = $(this).attr('data-id');
-            console.log("id is " , id);
-
-            var count = parseInt($(this).attr('data-count'));
-
-            var updateShout = {
-                count : count+1,
+            // we update the count and status
+            updateShout = {
+                count : parseInt(count)+1,
                 status : true
             };
-            $.ajax({
-                method : "PUT",
-                url : "/shouts/" + id,
-                data : updateShout
-            }).then(function(result){
-                console.log("shout updated!");
-                location.reload();
-            });
+        } // else: meaning that user has already belongs to this shout , and the label is set to update 
+        else {
+            // we update the body 
+            var body = "new text";
+            updateShout = {
+                body : body
+            };
         }
+        $.ajax({
+            method : "PUT",
+            url : "/shouts/" + id,
+            data : updateShout
+        }).then(function(result){
+            console.log("shout updated!");
+            location.reload();
+        });
     
     });
 
