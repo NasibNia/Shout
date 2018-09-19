@@ -72,7 +72,9 @@ $(document).ready(function(){
  
             var newShout = {
                 UserId : getUserId(),
-                body : $('#shoutInput').val().trim()
+                body : $('#shoutInput').val().trim(),
+                count : 1,
+                status : true
             };
             console.log("new shout is " , newShout);
             
@@ -133,6 +135,24 @@ $(document).ready(function(){
     }
     
     // console.log("user ID is: " + getUserId())
+
+    //~~~~~~~~~~~~~~ Nasib
+    //when clicking on stat button: false --> text is join  /true ---> text is update
+    $('.stat-btn').on('click', function(event){
+    
+    });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 });

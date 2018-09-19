@@ -39,7 +39,9 @@
                             <br>
                             By: {{this.Users.0.name}}
                         
-                            <button class="btn btn-success join-btn" data-id="{{this.id}}">Join</button>
+                            <button class="btn btn-success stat-btn" data-id="{{this.id}}">
+                                {{#if this.status}}Update{{else}}Join{{/if}}
+                            </button>
                             <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
                         </div>
                     {{/each}}                   

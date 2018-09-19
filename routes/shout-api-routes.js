@@ -14,7 +14,7 @@ module.exports = function(app){
             console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyy\n\n");
             console.log("dbShout is " , dbShout);
             // res.json(dbShout);
-            console.log(dbShout)
+            console.log(dbShout);
             res.render("map" , {allShouts : dbShout});
         });
     });
@@ -41,9 +41,9 @@ module.exports = function(app){
             }]
         }).then(function(dbShout){
             console.log("params\n\n");
-            console.log(dbShout)
+            console.log(dbShout);
 
-            // console.log("dbShout is " , dbShout);
+            console.log("dbShout is " , dbShout);
             // res.json(dbShout);
             res.render("myprofile" , {allShouts : dbShout});
         });
@@ -65,7 +65,9 @@ module.exports = function(app){
     app.post("/shouts", function(req, res){
         console.log("req.body of this group is   ", req.body);
         db.Shout.create({
-            body : req.body.body
+            body : req.body.body,
+            count : req.body.count,
+            status : req.body.status
         }).then(function(dbShout){
             db.UserShout.create({
                 UserId : req.body.UserId,
