@@ -30,6 +30,20 @@ module.exports = function(app){
       res.render("myprofile", {all:dbUser});
     });
   });
+  
+  // //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ changed to email by andrew
+  // app.get("/api/users/:email", function(req,res){
+  //   // a join to include all of the users shouts 
+  //   db.User.findOne({
+  //     where : {
+  //       email : req.params.email
+  //     },
+  //     include: [db.Shout]
+  //       }).then(function(user){
+  //     // res.json(dbUser);
+  //     res.json(user);
+  //   });
+  // });
 
   app.get("/api/users/:id", function(req,res){
     // a join to include all of the users shouts 
@@ -43,16 +57,19 @@ module.exports = function(app){
       res.json(dbUser);
     });
   });
-
+  
+  // ~~~~~~~~~~~ Upated by Andrew
   // Create new user
-  app.post("/users",function(req,res){
+  app.post("/api/users/",function(req,res){
+    console.log(req.body)
     //add a new user : happens in login
     console.log("A new user being added!");
     db.User.create(req.body).then(function(dbUser){
       console.log("added user");
       // sends back the id of new inserted object into data base
       console.log("dbUser   inside server  " , dbUser);
-      res.render("map", {all:dbUser});
+      console.log(dbuser)
+      res.json(dbUser);
 });
   });
 

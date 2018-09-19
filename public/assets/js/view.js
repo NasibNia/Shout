@@ -1,9 +1,11 @@
+var userInfo = {};
+
+
 $(document).ready(function(){
     var loggedIn = false;
     var usernameInput;
     var passwordInput;
     var currentUserId=-1;
-    var userInfo = {};
 
     $("#start").on("click", function(event){
         // event.preventDefault();
@@ -69,7 +71,7 @@ $(document).ready(function(){
         event.preventDefault();
  
             var newShout = {
-                UserId : 1,
+                UserId : getUserId(),
                 body : $('#shoutInput').val().trim()
             };
             console.log("new shout is " , newShout);
@@ -88,7 +90,7 @@ $(document).ready(function(){
     });
 
     $('#see-shouts').on('click', function(event){
-        var id = getUserID();
+        var id = getUserId();
         window.location.href = "/users/" + id;
         // $.get("/shouts/" + id, function(results) {
         //     console.log("getting shouts from userID: " + id)
@@ -126,11 +128,49 @@ $(document).ready(function(){
         window.location.href = "/shouts";
     }
 
+    function getUserId() {
+        return userInfo.id
+    }
     
+    // console.log("user ID is: " + getUserId())
+
 
 });
 
-function getUserID() {
-    // var email = profile.getEmail();
-    return 1;
+
+var userInfo = {};
+
+
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    userInfo.name = profile.getName();
+    userInfo.email = profile.getEmail()
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    var email = userInfo.email;
+    $.get("/api/users/", function(results){
+        console.log(results)
+        for (var i = 0; i < results.length; i++){
+            console.log(results[i].email)
+            console.log(email)
+            if (results[i].email === email) {
+                userInfo.id = results[i].id;
+            }
+        }
+
+        if (!userInfo.id) {
+        console.log("create new user")
+        newUser = {
+                name: userInfo.name, 
+                email: email
+            }
+        $.post("api/users", newUser).then(function() {
+            location.reload();
+        })
+    }
+    })
 }
+  

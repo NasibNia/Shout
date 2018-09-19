@@ -4,6 +4,10 @@ module.exports = function(app){
     });
 
     app.get("/myprofile", function(req, res){
-        res.render("myprofile",{res});
+        res.render("myprofile",res);
     });
+
+    app.get("/map", function(req, res) {
+        res.render("map", res)
+    })
 };
