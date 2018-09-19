@@ -11,6 +11,21 @@ if (userInfo.name) {
 }
 
 $(document).ready(function(){
+    //toggle `popup` / `inline` mode
+    $.fn.editable.defaults.mode = 'popup';       
+    //make username editable
+    $('#username').editable({
+        mode: 'inline',
+    });
+    $('.hours').editable({
+        mode: 'inline',
+        type: 'number',
+        step: '1.00',
+        min: '0.00',
+        max: '24'
+    });
+
+
     var loggedIn = false;
     var usernameInput;
     var passwordInput;
