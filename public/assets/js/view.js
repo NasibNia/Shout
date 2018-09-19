@@ -75,7 +75,8 @@ $(document).ready(function(){
                 UserId : getUserId(),
                 body : $('#shoutInput').val().trim(),
                 count : 1,
-                status : true
+                status : true,
+                location:"sf"
             };
             console.log("new shout is " , newShout);
             
@@ -195,9 +196,7 @@ $(document).ready(function(){
 
 });
 
-
 var userInfo = {};
-
 
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
@@ -239,6 +238,6 @@ function onSignIn(googleUser) {
     });
 
 
-    
+
 }
   

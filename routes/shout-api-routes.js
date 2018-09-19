@@ -67,7 +67,8 @@ module.exports = function(app){
         db.Shout.create({
             body : req.body.body,
             count : req.body.count,
-            status : req.body.status
+            status : req.body.status,
+            location : req.body.location
         }).then(function(dbShout){
             db.UserShout.create({
                 UserId : req.body.UserId,
