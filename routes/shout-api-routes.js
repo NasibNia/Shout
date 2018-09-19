@@ -78,16 +78,17 @@ module.exports = function(app){
         });          
     });
 
-    // app.put("/shouts/:id" , function(req,res){
-    //     db.Shout.update(
-    //         req.body,  
-    //         {where : {
-    //             id : req.params.id
-    //         }
-    //     }).then(function(dbShout){
-    //         res.json(dbShout);
-    //     });
-    // });
+    //update a specific shout
+    app.put("/shouts/:id" , function(req,res){
+        db.Shout.update(
+            req.body,  
+            {where : {
+                id : req.params.id
+            }
+        }).then(function(dbShout){
+            res.json(dbShout);
+        });
+    });
 
     //delete shout
     app.delete("/shouts/:id" , function(req,res){
