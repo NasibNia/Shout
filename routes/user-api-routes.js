@@ -61,14 +61,14 @@ module.exports = function(app){
   // ~~~~~~~~~~~ Upated by Andrew
   // Create new user
   app.post("/api/users/",function(req,res){
-    console.log(req.body)
+    console.log(req.body);
     //add a new user : happens in login
     console.log("A new user being added!");
     db.User.create(req.body).then(function(dbUser){
       console.log("added user");
       // sends back the id of new inserted object into data base
       console.log("dbUser   inside server  " , dbUser);
-      console.log(dbuser)
+      console.log(dbUser);
       res.json(dbUser);
 });
   });
