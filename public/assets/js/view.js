@@ -129,7 +129,7 @@ $(document).ready(function(){
     }
 
     function getUserId() {
-        return userInfo.id
+        return userInfo.id;
     }
     
     // console.log("user ID is: " + getUserId())
