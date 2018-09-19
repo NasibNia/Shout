@@ -231,7 +231,7 @@ function onSignIn(googleUser) {
             gapi.auth2.getAuthInstance().signOut()
 
             window.location.href = "/shouts";
-        })
+        }) 
     }
     })
         // gapi.auth2.getAuthInstance().signOut()
