@@ -24,13 +24,7 @@
                 </form>
                 <button type="submit" class="btn btn-primary todo-btn" id="see-shouts">See Your Shouts!</button>  
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            
-
             </div>
-
-
-               
-
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                     <h5 class="card-title">Shouts Around you</h5>
@@ -39,10 +33,20 @@
                             {{this.body}}
                             <br>
                             By: {{this.Users.0.name}}
+
+{{!-- popover --}}
+                            <a href="#" id="username" data-type="text" data-placement="right" data-title="Enter username">superuser</a>
+{{!-- end of popover  --}}
                         
+                            
+                            
+                            {{#unless this.status}}
                             <button class="btn btn-success stat-btn" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
-                                {{#if this.status}}Update{{else}}Join{{/if}}
+                                Join
                             </button>
+                            {{/unless}}
+
+
                             <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
                         </div>
                     {{/each}}                   
