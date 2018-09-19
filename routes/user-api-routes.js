@@ -2,6 +2,7 @@ var db = require('../models');
 
 module.exports = function(app){
 
+  // Gets JSON of all users
   app.get("/api/users", function(req,res){
     //find all the users ;
     db.User.findAll({
@@ -14,8 +15,6 @@ module.exports = function(app){
       res.json(dbUser);
     });
   });
-
-  // each user has a location , which is varient and needs to be updated 
 
   // Get single user information with all user shouts
   app.get("/users/:id", function(req,res){
@@ -45,6 +44,7 @@ module.exports = function(app){
   //   });
   // });
 
+  // Gets JSON of users and shouts
   app.get("/api/users/:id", function(req,res){
     // a join to include all of the users shouts 
     db.User.findOne({
@@ -58,7 +58,6 @@ module.exports = function(app){
     });
   });
   
-  // ~~~~~~~~~~~ Upated by Andrew
   // Create new user
   app.post("/api/users/",function(req,res){
     console.log(req.body);
@@ -73,6 +72,7 @@ module.exports = function(app){
 });
   });
 
+  // Delete user from database
   app.delete("/users/:userid", function(req,res){
     db.User.destroy({
       where : {
