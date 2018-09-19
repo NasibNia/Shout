@@ -29,7 +29,8 @@ module.exports = function(sequelize, DataTypes){
             //         msg : 'password should contain only numbers and alphabets'
             //     }
             // }
-        }
+        },
+        imgUrl : DataTypes.STRING
     //     {
     //     instanceMethods: {
     //       generateHash: function (password) {

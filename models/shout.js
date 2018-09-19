@@ -7,7 +7,13 @@ module.exports = function(sequelize , DataTypes){
                 args : [0,200],
                 msg : 'Name is too long'
                 }
-        }
+        },
+        count : DataTypes.INTEGER,
+        status :{
+            type : DataTypes.BOOLEAN ,
+            defaultValue : false
+        },
+        location : DataTypes.STRING
     });
 
     Shout.associate = function(models){

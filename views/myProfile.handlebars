@@ -1,14 +1,38 @@
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-    <h5 class="card-title">{{all.name}}, here are your shouts!</h5>
-    {{#each all.Shouts}} 
-        <div class="alert alert-primary" role="alert">
-            {{this.body}}
-            <br>
-            By: {{all.name}}
-        
-            <button class="btn btn-success join-btn" data-id="{{this.id}}">Join</button>
-            <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">{{all.name}}, here are your shouts!</h5>
+                {{#each all.Shouts}} 
+                    <div class="alert alert-primary" role="alert">
+                        {{this.body}}
+                        <br>
+                        By: {{all.name}}
+                    
+                        <button class="btn btn-success stat-btn" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>Update</button>
+                        <button class="btn btn-success del-btn" data-id="{{this.id}}">Del</button>
+                        <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
+                    </div>
+                    <footer class="blockquote-footer">
+                        <small class="text-muted">
+                        
+                        </small>
+                    </footer>
+                {{/each}}                   
+            </div>
         </div>
-    {{/each}}                   
+        <div class="col-md-4">
+            <div class="row" id="pic-div"><img src="{{all.imgUrl}}" alt="image profile"></div>
+            <div class="row" >
+            <button class="btn btn-primary" id="leave" data-id="">Leave the App</button>
+            
+            <button class="btn btn-primary home-btn" >Home</button>
+            </div>
+            <div class="row" id="AboutMe-div"></div>
+        </div>
+    </div>
 </div>
+
+
+

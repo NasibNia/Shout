@@ -22,7 +22,8 @@ $(document).ready(function(){
         // getShouts();
         userInfo = {
             name : "Potato",
-            email: "potato@potato.com"
+            email: "potato@potato.com",
+            imgUrl: "www"
         };
         // usernameInput = $('#username-id').val().trim();
         // passwordInput = $('#password-id').val().trim();
@@ -72,7 +73,10 @@ $(document).ready(function(){
  
             var newShout = {
                 UserId : getUserId(),
-                body : $('#shoutInput').val().trim()
+                body : $('#shoutInput').val().trim(),
+                count : 1,
+                status : true,
+                location:"sf"
             };
             console.log("new shout is " , newShout);
             
@@ -129,48 +133,111 @@ $(document).ready(function(){
     }
 
     function getUserId() {
-        return userInfo.id
+        return userInfo.id;
     }
     
     // console.log("user ID is: " + getUserId())
 
+    //~~~~~~~~~~~~~~ Nasib
+    //when clicking on stat button: false --> text is join  /true ---> text is update
+    // when a user wants to join someone elses shout: if the btn is set to join, by clicking on it it should toggle to update and increase the shout count by 1
+    $('.stat-btn').on('click', function(event){
+        
+        var updateShout = {};
+        var status = $(this).attr('data-stat');
+        var id = $(this).attr('data-id');
+        var count = $(this).attr('data-count');
+
+        // if stat = false meaning the user hasn't joined this shout yet
+        // we get the shout id, update the count of that shout, and reload the page
+        if (status === "false") {
+            // we update the count and status
+            updateShout = {
+                count : parseInt(count)+1,
+                status : true
+            };
+        } // else: meaning that user has already belongs to this shout , and the label is set to update 
+        else {
+            // we update the body 
+            var body = "new text";
+            updateShout = {
+                body : body
+            };
+        }
+        $.ajax({
+            method : "PUT",
+            url : "/shouts/" + id,
+            data : updateShout
+        }).then(function(result){
+            console.log("shout updated!");
+            location.reload();
+        });
+    
+    });
+
+
+    $('.del-btn').on('click', function(event){
+        var id = $(this).attr('data-id');
+
+        $.ajax({
+            method : "DELETE",
+            url : "/shouts/" + id,         
+        }).then(function(data){
+            location.reload();
+        });
+
+
+    });
+
+
+
+
+
 
 });
 
-
 var userInfo = {};
-
 
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     userInfo.name = profile.getName();
-    userInfo.email = profile.getEmail()
+    userInfo.email = profile.getEmail();
+    var imgUrl = profile.getImageUrl();
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
     var email = userInfo.email;
     $.get("/api/users/", function(results){
-        console.log(results)
+        console.log(results);
         for (var i = 0; i < results.length; i++){
-            console.log(results[i].email)
-            console.log(email)
+            console.log(results[i].email);
+            console.log(email);
             if (results[i].email === email) {
                 userInfo.id = results[i].id;
             }
         }
 
         if (!userInfo.id) {
-        console.log("create new user")
-        newUser = {
+        console.log("create new user");
+        var newUser = {
                 name: userInfo.name, 
-                email: email
-            }
+                email: email,
+                imgUrl: imgUrl
+            };
         $.post("api/users", newUser).then(function() {
             location.reload();
-        })
+        });
     }
-    })
+    });
+
+
+    $(document).on('click', '.home-btn', function(event){
+        window.location.href = "/shouts";
+    });
+
+
+
 }
   
