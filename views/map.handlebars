@@ -24,9 +24,7 @@
                 </form>
                 {{!-- <button type="submit" class="btn btn-primary todo-btn" id="see-shouts">See Shouts!</button>   --}}
             </div>
-<<<<<<< HEAD
             <div class="row">  
-=======
             <div class="row">  Shouts Around you
 
                {{#each allShouts}} 
@@ -36,7 +34,6 @@
                    </li>
                </ul>
                {{/each}}
->>>>>>> 2ef5f504d3b1545afa9a41b3038ad18462b5b61d
 
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
@@ -44,11 +41,11 @@
                     {{#each allShouts}} 
                         <div class="alert alert-primary" role="alert">
                             <li>{{this.body}}</li> 
-                            <button class="btn btn-success ">Join</button>
-                            <button class="btn btn-primary" id="{{this.count}}"></button>
+                        
+                            <button class="btn btn-success join-btn" data-id="{{this.id}}">Join</button>
+                            <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
                         </div>
-                    {{/each}}
-                    
+                    {{/each}}                   
                 </div>
                 </div>
                 
