@@ -1,5 +1,14 @@
-var userInfo = {};
+var userInfo = {
+    name : localStorage.getItem("name"),
+    email : localStorage.getItem("email"),
+    imgUrl: localStorage.getItem("imgUrl"),
+    id : localStorage.getItem("id")
 
+};
+if (userInfo.name) {
+    console.log(userInfo)
+
+}
 
 $(document).ready(function(){
     //toggle `popup` / `inline` mode
@@ -26,59 +35,14 @@ $(document).ready(function(){
         // event.preventDefault();
         $.get("/shouts" , function(data){
             console.log(data);
-            window.location.href = "/shouts";
-        });    
+
+        })
     });
 
 
-    $(document).on('submit' , '#login-form' , function(event){
-        event.preventDefault();
-
-        // getShouts();
-        userInfo = {
-            name : "Potato",
-            email: "potato@potato.com",
-            imgUrl: "www"
-        };
-        // usernameInput = $('#username-id').val().trim();
-        // passwordInput = $('#password-id').val().trim();
-    
-        // if (!usernameInput || !passwordInput) {
-        //     console.log("both fields are required to continue");
-        //     return;
-        // } else{
 
 
 
-        $.post("/users" , userInfo, function(data) {
-            console.log(data);
-        // console.log("currentUserId    end of start" , currentUserId);
-        // console.log("userInfo    ",userInfo);
-        })
-    })
-
-    // function getCurrentUserId(){
-
-    //     $.get("/api/users",function(results) {
-    //         console.log("all users info from api is    " , results );
-    //         console.log("userInfo      ",userInfo);
-    //         for(var i =0 ; i < results.length ; i++){
-    //             if (results[i].name === usernameInput && results[i].password === passwordInput){
-    //                 console.log("curent user id is  ", results[i].id);
-    //                 currentUserId = results[i].id;
-    //                 // ;
-    //                 return currentUserId;
-       
-    //             }
-    //         }
-    //     });
-    //     $.get("/api/users/user_id=:id" , function(res){
-    //         window.location.href = "/api/users/user_id="+currentUserId;
-    //         console.log("after .getmap   ", currentUserId);
-    //         getShouts(currentUserId);
-    //     });
-    // }
-//==============================================================
 
     /// these functions handle the map page events
 
@@ -211,48 +175,93 @@ $(document).ready(function(){
 
 });
 
-var userInfo = {};
 
+// Signs in user to google, creates user if not in database, stores local variables
 function onSignIn(googleUser) {
+    localStorage.clear();
+
     var profile = googleUser.getBasicProfile();
+
+    localStorage.setItem("name", profile.getName());
+    localStorage.setItem("email", profile.getEmail());
+    localStorage.setItem("imgUrl", profile.getImageUrl());
+
+
+    
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
-    userInfo.name = profile.getName();
-    userInfo.email = profile.getEmail();
-    var imgUrl = profile.getImageUrl();
+    // userInfo.name = profile.getName();
     console.log('Image URL: ' + profile.getImageUrl());
+    // var imgUrl = profile.getImageUrl();
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    // userInfo.email = profile.getEmail();
 
-    var email = userInfo.email;
+
+    var email = localStorage.getItem("email");
     $.get("/api/users/", function(results){
+
         console.log(results);
+        var found = false;
         for (var i = 0; i < results.length; i++){
-            console.log(results[i].email);
-            console.log(email);
+            console.log(email)
+            console.log(results[i].email)
             if (results[i].email === email) {
+
+
+                console.log("User exists")
+                found = true;
                 userInfo.id = results[i].id;
+                localStorage.setItem("id", results[i].id);
+                gapi.auth2.getAuthInstance().signOut()
+
+                window.location.href = "/shouts";
             }
         }
-
-        if (!userInfo.id) {
+        console.log(userInfo)
+        if (!found) {
         console.log("create new user");
         var newUser = {
-                name: userInfo.name, 
-                email: email,
-                imgUrl: imgUrl
+                name: localStorage.getItem("name"), 
+                email: localStorage.getItem("email"), 
+                imgUrl: localStorage.getItem("imgUrl"), 
             };
-        $.post("api/users", newUser).then(function() {
-            location.reload();
-        });
+        $.post("api/users", newUser, function(data) {
+            console.log(data.id)
+            localStorage.setItem("id", data.id);
+            gapi.auth2.getAuthInstance().signOut()
+
+            window.location.href = "/shouts";
+        }) 
     }
-    });
+    })
+        // gapi.auth2.getAuthInstance().signOut()
+
+        // window.location.href = "/shouts";
 
 
-    $(document).on('click', '.home-btn', function(event){
-        window.location.href = "/shouts";
-    });
 
 
 
 }
-  
+// Home button on click function
+$(document).on('click', '.home-btn', function(event){
+    window.location.href = "/shouts";
+});
+
+// Sign out function
+// function signOut() {
+//     var auth2 = gapi.auth2.getAuthInstance();
+//     auth2.signOut().then(function () {
+//       console.log('User signed out.');
+//     });
+//   }
+
+// Sign out on click
+  $(document).on('click', '#signout', function(event){
+    console.log("signing out")
+    localStorage.clear();
+    userInfo = {};
+    window.location.href = "/";
+
+    // signOut();
+})

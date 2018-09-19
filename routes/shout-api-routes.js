@@ -2,7 +2,7 @@ var db  = require("../models");
 
 module.exports = function(app){
     
-    //gettig all the shouts + the name of people who shouted or joined them
+    // Gets all shouts from database and sends back json to render
     app.get("/shouts", function(req,res){
 
         db.Shout.findAll({
@@ -32,36 +32,36 @@ module.exports = function(app){
     });
 
     // gets all shouts with user id
-    app.get("/shouts/:userid", function(req,res){
-        // console.log(query)
-        db.Shout.findAll({
-            where: {id:req.params.userid},
-                include : [{
-                model : db.User
-            }]
-        }).then(function(dbShout){
-            console.log("params\n\n");
-            console.log(dbShout);
+    // app.get("/shouts/:userid", function(req,res){
+    //     // console.log(query)
+    //     db.Shout.findAll({
+    //         where: {id:req.params.userid},
+    //             include : [{
+    //             model : db.User
+    //         }]
+    //     }).then(function(dbShout){
+    //         console.log("params\n\n");
+    //         console.log(dbShout);
 
-            console.log("dbShout is " , dbShout);
-            // res.json(dbShout);
-            res.render("myprofile" , {allShouts : dbShout});
-        });
-    });
+    //         console.log("dbShout is " , dbShout);
+    //         // res.json(dbShout);
+    //         res.render("myprofile" , {allShouts : dbShout});
+    //     });
+    // });
     
-    // get specific shout from shoutid
-    app.get("/shouts/:shoutid", function(req,res){
-        db.Shout.findOne({ //test this
-            where : {
-                id : req.params.id
-            },
-            include:[db.User]
-        }).then(function(dbShout){
-            res.json(dbShout);
-        });
-    });
+    // get specific shout from shoutid, 
+    // app.get("/shouts/:shoutid", function(req,res){
+    //     db.Shout.findOne({ //test this
+    //         where : {
+    //             id : req.params.id
+    //         },
+    //         include:[db.User]
+    //     }).then(function(dbShout){
+    //         res.json(dbShout);
+    //     });
+    // });
     
-    // create shout
+    // create new shout
     app.post("/shouts", function(req, res){
         console.log("req.body of this group is   ", req.body);
         db.Shout.create({
@@ -79,7 +79,7 @@ module.exports = function(app){
         });          
     });
 
-    //update a specific shout
+    // update a specific shout
     app.put("/shouts/:id" , function(req,res){
         db.Shout.update(
             req.body,  
