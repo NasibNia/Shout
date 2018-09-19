@@ -89,11 +89,12 @@ $(document).ready(function(){
 
     $('#see-shouts').on('click', function(event){
         var id = getUserID();
-        $.get("/shouts/" + id, function(results) {
-            console.log("getting shouts from userID: " + id)
-        }).then(function(data){
-            window.location.href = "/myProfile";
-        })
+        window.location.href = "/users/" + id;
+        // $.get("/shouts/" + id, function(results) {
+        //     console.log("getting shouts from userID: " + id)
+        // }).then(function(data){
+        //     window.location.href = "/myprofile";
+        // })
 
 
         
