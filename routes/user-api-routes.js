@@ -17,7 +17,7 @@ module.exports = function(app){
 
   // each user has a location , which is varient and needs to be updated 
 
-  // Get single user information
+  // Get single user information with all user shouts
   app.get("/users/:id", function(req,res){
     // a join to include all of the users shouts 
     db.User.findOne({
