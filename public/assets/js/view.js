@@ -143,9 +143,7 @@ $(document).ready(function(){
         
         var updateShout = {};
         var status = $(this).attr('data-stat');
-        console.log("status is " , status);
         var id = $(this).attr('data-id');
-        console.log("id is " , id);
         var count = $(this).attr('data-count');
 
         // if stat = false meaning the user hasn't joined this shout yet
@@ -176,12 +174,18 @@ $(document).ready(function(){
     });
 
 
+    $('.del-btn').on('click', function(event){
+        var id = $(this).attr('data-id');
+
+        $.ajax({
+            method : "DELETE",
+            url : "/shouts/" + id,         
+        }).then(function(data){
+            location.reload();
+        });
 
 
-
-
-
-
+    });
 
 
 
