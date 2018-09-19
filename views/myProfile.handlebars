@@ -1,5 +1,14 @@
-<div id="label">
-    {{#each allShouts}} 
-        {{this.body}}
-    {{/each}}
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+    <h5 class="card-title">{{all.name}}, here are your shouts!</h5>
+    {{#each all.Shouts}} 
+        <div class="alert alert-primary" role="alert">
+            {{this.body}}
+            <br>
+            By: {{all.name}}
+        
+            <button class="btn btn-success join-btn" data-id="{{this.id}}">Join</button>
+            <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
+        </div>
+    {{/each}}                   
 </div>

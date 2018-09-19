@@ -23,10 +23,24 @@ module.exports = function(app){
     db.User.findOne({
       where : {
         id : req.params.id
-      }
+      },
+      include: [db.Shout]
     }).then(function(dbUser){
       // res.json(dbUser);
-      res.render("profile", {all:dbUser});
+      res.render("myprofile", {all:dbUser});
+    });
+  });
+
+  app.get("/api/users/:id", function(req,res){
+    // a join to include all of the users shouts 
+    db.User.findOne({
+      where : {
+        id : req.params.id
+      },
+      include: [db.Shout]
+    }).then(function(dbUser){
+      // res.json(dbUser);
+      res.json(dbUser);
     });
   });
 

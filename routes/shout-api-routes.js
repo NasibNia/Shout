@@ -14,7 +14,20 @@ module.exports = function(app){
             console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyy\n\n");
             console.log("dbShout is " , dbShout);
             // res.json(dbShout);
+            console.log(dbShout)
             res.render("map" , {allShouts : dbShout});
+        });
+    });
+
+    app.get("/api/shouts", function(req,res){
+
+        db.Shout.findAll({
+            include : [{
+                // where: query,
+                model : db.User
+            }]
+        }).then(function(dbShout){
+            res.json(dbShout);
         });
     });
 
@@ -28,9 +41,11 @@ module.exports = function(app){
             }]
         }).then(function(dbShout){
             console.log("params\n\n");
+            console.log(dbShout)
+
             // console.log("dbShout is " , dbShout);
             // res.json(dbShout);
-            res.render("myProfile" , {allShouts : dbShout});
+            res.render("myprofile" , {allShouts : dbShout});
         });
     });
     
