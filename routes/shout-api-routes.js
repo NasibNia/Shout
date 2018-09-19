@@ -65,7 +65,8 @@ module.exports = function(app){
     app.post("/shouts", function(req, res){
         console.log("req.body of this group is   ", req.body);
         db.Shout.create({
-            body : req.body.body
+            body : req.body.body,
+            count :req.body.count
         }).then(function(dbShout){
             db.UserShout.create({
                 UserId : req.body.UserId,

@@ -70,7 +70,8 @@ $(document).ready(function(){
  
             var newShout = {
                 UserId : 1,
-                body : $('#shoutInput').val().trim()
+                body : $('#shoutInput').val().trim(),
+                count :1
             };
             console.log("new shout is " , newShout);
             
