@@ -22,7 +22,8 @@ $(document).ready(function(){
         // getShouts();
         userInfo = {
             name : "Potato",
-            email: "potato@potato.com"
+            email: "potato@potato.com",
+            imgUrl: "www"
         };
         // usernameInput = $('#username-id').val().trim();
         // passwordInput = $('#password-id').val().trim();
@@ -203,31 +204,33 @@ function onSignIn(googleUser) {
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     userInfo.name = profile.getName();
-    userInfo.email = profile.getEmail()
+    userInfo.email = profile.getEmail();
+    var imgUrl = profile.getImageUrl();
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
     var email = userInfo.email;
     $.get("/api/users/", function(results){
-        console.log(results)
+        console.log(results);
         for (var i = 0; i < results.length; i++){
-            console.log(results[i].email)
-            console.log(email)
+            console.log(results[i].email);
+            console.log(email);
             if (results[i].email === email) {
                 userInfo.id = results[i].id;
             }
         }
 
         if (!userInfo.id) {
-        console.log("create new user")
-        newUser = {
+        console.log("create new user");
+        var newUser = {
                 name: userInfo.name, 
-                email: email
-            }
+                email: email,
+                imgUrl: imgUrl
+            };
         $.post("api/users", newUser).then(function() {
             location.reload();
-        })
+        });
     }
-    })
+    });
 }
   
