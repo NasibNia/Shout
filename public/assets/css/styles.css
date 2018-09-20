@@ -9,9 +9,11 @@
 /* } */
 #maps
 {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
     height: 300%;
 }
-#parallax { 
+.parallax { 
     /* The image used */
     background-image: url("../images/shout.gif");
 
@@ -153,4 +155,24 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+
+#map-page-header{
+  background-image: url("../images/peop2.jpg");
+    height: 1000px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hm-gradient .full-bg-img{
+  background: -moz-linear-gradient(45deg, rgba(242, 34, 50, 0.5), rgba(255, 187, 54, 0.6) 100%);
+  background: -webkit-linear-gradient(45deg, rgba(242, 34, 50, 0.5), rgba(255, 187, 54, 0.6) 100%);
+  background: linear-gradient(to 45deg, rgba(29, 236, 197, 0.4), rgba(96, 0, 136, 0.4) 100%);
+}
+
+#head{
+  height: 1000px;
 }
