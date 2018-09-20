@@ -34,7 +34,7 @@ $(document).ready(function(){
         $.get("/shouts" , function(data){
             console.log(data);
         })
-    }); 
+    });
 
 
 
