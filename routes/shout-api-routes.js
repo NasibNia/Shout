@@ -1,9 +1,10 @@
 var db  = require("../models");
+var moment = require("moment");
 
 module.exports = function(app){
     
     // Gets all shouts from database and sends back json to render
-    app.get("/shouts", function(req,res){
+    app.get("/shouts/:id", function(req,res){
 
         db.Shout.findAll({
             include : [{
@@ -11,11 +12,28 @@ module.exports = function(app){
                 model : db.User
             }]
         }).then(function(dbShout){
-            console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyy\n\n");
-            console.log("dbShout is " , dbShout);
+            // console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyy\n\n");
+            // console.log("dbShout is " , dbShout);
             // res.json(dbShout);
-            console.log(dbShout);
-            res.render("map" , {allShouts : dbShout});
+            console.log(dbShout.length);
+            for (var i = 0; i < dbShout.length; i++) {
+                dbShout[i].time = moment(dbShout[i].updatedAt).fromNow();
+                dbShout[i].count = dbShout[i].Users.length;
+                for (var j = 0; j < dbShout[i].Users.length; j++) {
+                    // if user is found in the shout
+                    if (dbShout[i].Users[j].id === parseInt(req.params.id)) {
+
+                        dbShout[i].status = true;
+                    } else {
+                        dbShout[i].status = false;
+                    }
+                }
+
+            }
+            
+
+            // res.json(dbShout.reverse());
+            res.render("map" , {allShouts : dbShout.reverse()});
         });
     });
 
@@ -27,7 +45,7 @@ module.exports = function(app){
                 model : db.User
             }]
         }).then(function(dbShout){
-            res.json(dbShout);
+            res.json(dbShout.reverse());
         });
     });
 

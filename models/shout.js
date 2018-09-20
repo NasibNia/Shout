@@ -8,12 +8,15 @@ module.exports = function(sequelize , DataTypes){
                 msg : 'Name is too long'
                 }
         },
-        count : DataTypes.INTEGER,
-        status :{
-            type : DataTypes.BOOLEAN ,
-            defaultValue : false
-        },
-        location : DataTypes.STRING
+        // count : DataTypes.INTEGER,
+        // status :{
+        //     type : DataTypes.BOOLEAN ,
+        //     defaultValue : false
+        // },
+        location : DataTypes.STRING,
+
+
+
     });
 
     Shout.associate = function(models){
