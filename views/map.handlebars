@@ -9,12 +9,6 @@
                 <a href="#" class="btn btn-primary">zoomIn/out</a>
             </div> --}}
         </div>
-        <div id="label">
-       {{#each allShouts}} 
-            {{this.body}}
-            
-        {{/each}}
-        </div>
         </div>
         <div class="col-md">
             <div class="row">
@@ -33,9 +27,12 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                     <h5 class="card-title">Shouts Around you</h5>
+                
                     {{#each allShouts}} 
                         <div class="alert alert-primary" role="alert">
+                            <div id="area1">
                             {{this.body}}
+                            </div>
                             <br>
                             By: {{this.Users.0.name}}
 
@@ -54,26 +51,45 @@
 
                             <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
                         </div>
-                    {{/each}}                   
+                    {{/each}}    
+                          
                 </div>
             </div>
+            {{!-- ======================== --}}
+            <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title">All Shouts</h5>
+                    <div id="userPut">
+                    {{#each allShouts}} 
+                        <div class="alert alert-primary" role="alert">
+                            <div>|</div>
+                            {{this.body}}
+                        </div>
+                    {{/each}}    
+                    </div>        
+                </div>
+            </div>
+            {{!-- ======================= --}}
         </div>
     </div>
 </div>
 
-{{!-- would be cool if we can automatically load the shouts on the map based on the zoomIn/out --}}
-{{!-- =======takes the current location and post their shout on the icon --}}
-{{!-- Note did not know where to put this in the rest of the code so I just added it here --}}
-{{!-- Wait for it to load a little based on wifi and it will find your location --}}
+
 <script> 
-    var map, popup, Popup;
+var allMarks = [];
+
+var labels = [];
+var c = document.getElementById("userPut");
+labels.push(c);
+var b = labels[0].innerText.split(/[|]/);
+allMarks.push(b);
+console.log(b);
+
+
+var map, popup, Popup;
 var map;
+
 function initMap() {
-  map = new google.maps.Map(document.getElementById('maps'), {
-    center: {lat:37.7650, lng:-122.45},
-    zoom: 12.43
-  });
-  var infowindow = new google.maps.InfoWindow();
 
   var marker, i;
 navigator.geolocation.getCurrentPosition(function(position)
@@ -82,25 +98,60 @@ navigator.geolocation.getCurrentPosition(function(position)
         lat: position.coords.latitude,
         lng: position.coords.longitude
     };
+
+     map = new google.maps.Map(document.getElementById('maps'), {
+        center: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+            },
+        zoom: 16
+    });
+    var infowindow = new google.maps.InfoWindow();
+    var infowindow1 = new google.maps.InfoWindow();
+    var icon = {
+        url: '../assets/images/marker2.png',
+        scaledSize: new google.maps.Size(80, 80),
+    };
+    var icon1 = {
+        url: 'http://maps.google.com/mapfiles/ms/micons/green-dot.png',
+        scaledSize: new google.maps.Size(60, 60),
+    };
+    allMarks.push(pos);
+    console.log(allMarks[1]);
+    for(var  i = 0; i < allMarks.length; i++)
+    {
+    var marker1 = new google.maps.Marker({
+            map: map,
+            icon: icon1,
+            position: {lat: allMarks[i].lat, lng: allMarks[i].lng},
+        }); 
+        marker1.addListener('click', function() {
+            infowindow1.setContent(b[b.length-2]);
+            infowindow1.open(map, marker1);
+        })
+    }  
       marker = new google.maps.Marker({
       map: map,
+      icon: icon,
       position: {lat: pos.lat, lng: pos.lng},
   });
+  
    google.maps.event.addListener(marker, 'click', (function(marker, i) {
     return function() {
-    infowindow.setContent(document.getElementById('label'));
+    infowindow.setContent(b[b.length-1]);
     infowindow.open(map, marker);
     }
     })(marker, i));
-})
+    setTimeout(function () {
+        marker.setMap(null);
+        delete marker;
+        
+    }, 3600000);
+    return marker;
+});
+
 } 
     </script>
-{{!-- ===========================================================================   --}}
-    {{!-- for one location --}}
-    {{!-- marker = new google.maps.Marker({
-    map: map,
-    position: {lat: 37.766, lng: -122.46},
 
-}); --}}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCxMhwqVnzuWIkanMZKlN6nAXkn_x7YbM&callback=initMap">
 </script>
