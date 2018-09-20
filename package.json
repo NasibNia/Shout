@@ -1,7 +1,6 @@
 {
   "name": "shout_ns",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -29,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/NasibNia/Shout_NS/issues"
   },
-  "homepage": "https://github.com/NasibNia/Shout_NS#readme"
+  "homepage": "https://github.com/NasibNia/Shout_NS#readme",
+  "description": ""
 }
