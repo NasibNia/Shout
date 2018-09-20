@@ -5,10 +5,9 @@ var userInfo = {
     id : localStorage.getItem("id")
 
 };
-if (userInfo.name) {
-    console.log(userInfo)
 
-}
+
+
 
 $(document).ready(function(){
     //toggle `popup` / `inline` mode
@@ -26,7 +25,6 @@ $(document).ready(function(){
     });
 
 
-    var loggedIn = false;
     var usernameInput;
     var passwordInput;
     var currentUserId=-1;
@@ -49,7 +47,7 @@ $(document).ready(function(){
     $(document).on('submit','#todo-form' ,function(event){
 
         event.preventDefault();
- 
+        if (getUserId()){
             var newShout = {
                 UserId : getUserId(),
                 body : $('#shoutInput').val().trim(),
@@ -69,47 +67,51 @@ $(document).ready(function(){
                 location.reload();
 
             });
-    
+        } else {
+            alert("User not logged in.")
+        }
     });
 
     $('#see-shouts').on('click', function(event){
-        var id = getUserId();
-        window.location.href = "/users/" + id;
-        // $.get("/shouts/" + id, function(results) {
-        //     console.log("getting shouts from userID: " + id)
-        // }).then(function(data){
-        //     window.location.href = "/myprofile";
-        // })
+        if (getUserId()) {
+            var id = getUserId();
+            window.location.href = "/users/" + id;
+            // $.get("/shouts/" + id, function(results) {
+            //     console.log("getting shouts from userID: " + id)
+            // }).then(function(data){
+            //     window.location.href = "/myprofile";
+            // })
 
-
-        
+        } else {
+            alert("User not logged in.")
+        }        
     });
 
-    function makeNewShout(newShout){
+    // function makeNewShout(newShout){
 
-    }
+    // }
 
-    function getUsers(){
-        $.get("/api/users",function(results) {
-            console.log("all users info from api is    " , results );
-            location.reload();
-            return results;
-        });
-    }
+    // function getUsers(){
+    //     $.get("/api/users",function(results) {
+    //         console.log("all users info from api is    " , results );
+    //         location.reload();
+    //         return results;
+    //     });
+    // }
 
-    function getShouts(id){
-        var userId = id || "";
-        if(userId){
-            userId = "/user_id="+userId;
-        }
-        console.log("userId   "+ userId);
-        $.get("/shouts"+userId,function(results) {
-            // console.log("all shouts info from api is    " , results );
+    // function getShouts(id){
+    //     var userId = id || "";
+    //     if(userId){
+    //         userId = "/user_id="+userId;
+    //     }
+    //     console.log("userId   "+ userId);
+    //     $.get("/shouts"+userId,function(results) {
+    //         // console.log("all shouts info from api is    " , results );
             
-            // return results;
-        });
-        window.location.href = "/shouts";
-    }
+    //         // return results;
+    //     });
+    //     window.location.href = "/shouts";
+    // }
 
     function getUserId() {
         return userInfo.id;

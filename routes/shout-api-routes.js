@@ -1,4 +1,5 @@
 var db  = require("../models");
+var moment = require("moment");
 
 module.exports = function(app){
     
@@ -11,11 +12,15 @@ module.exports = function(app){
                 model : db.User
             }]
         }).then(function(dbShout){
-            console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyy\n\n");
-            console.log("dbShout is " , dbShout);
+            // console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyy\n\n");
+            // console.log("dbShout is " , dbShout);
             // res.json(dbShout);
-            console.log(dbShout);
-            res.render("map" , {allShouts : dbShout});
+            console.log(dbShout.length);
+            for (var i = 0; i < dbShout.length; i++) {
+                dbShout[i].time = moment(dbShout[i].updatedAt).fromNow();
+            }
+            
+            res.render("map" , {allShouts : dbShout.reverse()});
         });
     });
 

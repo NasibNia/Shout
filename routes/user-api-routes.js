@@ -30,20 +30,6 @@ module.exports = function(app){
     });
   });
   
-  // //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ changed to email by andrew
-  // app.get("/api/users/:email", function(req,res){
-  //   // a join to include all of the users shouts 
-  //   db.User.findOne({
-  //     where : {
-  //       email : req.params.email
-  //     },
-  //     include: [db.Shout]
-  //       }).then(function(user){
-  //     // res.json(dbUser);
-  //     res.json(user);
-  //   });
-  // });
-
   // Gets JSON of users and shouts
   app.get("/api/users/:id", function(req,res){
     // a join to include all of the users shouts 

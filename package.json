@@ -9,6 +9,7 @@
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "fs": "0.0.1-security",
+    "moment": "^2.22.2",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.1",
     "path": "^0.12.7",
