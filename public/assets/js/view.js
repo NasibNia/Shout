@@ -30,10 +30,7 @@ $(document).ready(function(){
     var currentUserId=-1;
 
     $("#start").on("click", function(event){
-        // event.preventDefault();
-        $.get("/shouts" , function(data){
-            console.log(data);
-        })
+        document.getElementById('goog').click();   
     });
 
 
@@ -112,9 +109,7 @@ $(document).ready(function(){
     //     window.location.href = "/shouts";
     // }
 
-    function getUserId() {
-        return userInfo.id;
-    }
+
     
     // console.log("user ID is: " + getUserId())
 
@@ -251,7 +246,7 @@ function onSignIn(googleUser) {
 
 }
 // Home button on click function
-$(document).on('click', '.home-btn', function(event){
+$(document).on('click', '.back-btn', function(event){
     window.location.href = "/shouts/" + getUserId();
 });
 
@@ -271,4 +266,7 @@ $(document).on('click', '.home-btn', function(event){
     window.location.href = "/";
 
     // signOut();
-})
+})    
+function getUserId() {
+    return userInfo.id;
+}

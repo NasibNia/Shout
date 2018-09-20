@@ -10,7 +10,10 @@ module.exports = function(app){
             include : [{
                 // where: query,
                 model : db.User
-            }]
+            }],
+            order: [
+                ['updatedAt', 'DESC']
+            ]
         }).then(function(dbShout){
             // console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyy\n\n");
             // console.log("dbShout is " , dbShout);
@@ -33,7 +36,7 @@ module.exports = function(app){
             
 
             // res.json(dbShout.reverse());
-            res.render("map" , {allShouts : dbShout.reverse()});
+            res.render("map" , {allShouts : dbShout});
         });
     });
 
@@ -43,9 +46,12 @@ module.exports = function(app){
             include : [{
                 // where: query,
                 model : db.User
-            }]
+            }],
+            order: [
+                ['updatedAt', 'DESC']
+            ]
         }).then(function(dbShout){
-            res.json(dbShout.reverse());
+            res.json(dbShout);
         });
     });
 
