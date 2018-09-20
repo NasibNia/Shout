@@ -27,7 +27,7 @@ module.exports = function(app){
     }).then(function(dbUser){
       // res.json(dbUser);
       dbUser.Shouts = dbUser.Shouts.reverse();
-      res.render("myprofile", {all:dbUser});
+      res.render("myProfile", {all:dbUser});
     });
   });
   
