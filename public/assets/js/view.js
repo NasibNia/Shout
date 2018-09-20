@@ -33,7 +33,6 @@ $(document).ready(function(){
         // event.preventDefault();
         $.get("/shouts" , function(data){
             console.log(data);
-
         })
     });
 
@@ -125,7 +124,7 @@ $(document).ready(function(){
     $('.stat-btn').on('click', function(event){
         
         var updateShout = {};
-        var status = $(this).attr('data-stat');
+        // var status = $(this).attr('data-stat');
         var id = $(this).attr('data-id');
         var count = $(this).attr('data-count');
 
@@ -134,8 +133,8 @@ $(document).ready(function(){
         if (status === "false") {
             // we update the count and status
             updateShout = {
-                count : parseInt(count)+1,
-                status : true
+                count : parseInt(count) + 1,
+                // status : true
             };
         } // else: meaning that user has already belongs to this shout , and the label is set to update 
         else {
@@ -144,7 +143,7 @@ $(document).ready(function(){
             updateShout = {
                 body : body
             };
-        }
+        } // need to update count here and relationship table
         $.ajax({
             method : "PUT",
             url : "/shouts/" + id,
@@ -216,7 +215,7 @@ function onSignIn(googleUser) {
                 localStorage.setItem("id", results[i].id);
                 gapi.auth2.getAuthInstance().signOut()
 
-                window.location.href = "/shouts";
+                window.location.href = "/shouts/" + userInfo.id;
             }
         }
         console.log(userInfo)
@@ -232,7 +231,7 @@ function onSignIn(googleUser) {
             localStorage.setItem("id", data.id);
             gapi.auth2.getAuthInstance().signOut()
 
-            window.location.href = "/shouts";
+            window.location.href = "/shouts/" + data.id;
         }) 
     }
     })
