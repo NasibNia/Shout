@@ -23,6 +23,7 @@ $(document).ready(function(){
         min: '0.00',
         max: '24'
     });
+    
 
 
     var usernameInput;
@@ -233,14 +234,15 @@ function onSignIn(googleUser) {
                 imgUrl: localStorage.getItem("imgUrl"), 
             };
         $.post("api/users", newUser, function(data) {
-            console.log(data.id)
+            console.log(data.id);
             localStorage.setItem("id", data.id);
-            gapi.auth2.getAuthInstance().signOut()
+            gapi.auth2.getAuthInstance().signOut();
+
 
             window.location.href = "/shouts/" + data.id;
         }) 
     }
-    })
+    });
         // gapi.auth2.getAuthInstance().signOut()
 
         // window.location.href = "/shouts";
@@ -272,3 +274,5 @@ $(document).on('click', '.home-btn', function(event){
 
     // signOut();
 })
+
+

@@ -1,3 +1,14 @@
+
+<div class="container-fluid" >
+    <div class="row" id="map-page-header"></div>
+{{!-- </div>
+<div class="row container-fluid" > --}}
+    {{!-- <div class="row"> --}}
+        <div id="gradient" class="parallax">
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="#"></a>
+            </nav>
+
 <div class="container">
     <div class="row">
         <div class="col-md">
@@ -18,22 +29,57 @@
         </div>
         </div>
         <div class="col-md">
-            <div class="row">
-                <form class="form-inline" id="todo-form">
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="shoutInput" placeholder="Shout something here">
 
-                    <button type="submit" class="btn btn-primary todo-btn" id="shout">Shout!</button>
-                </form>
-                <button type="submit" class="btn btn-primary todo-btn" id="see-shouts">See Your Shouts!</button>  
-                <button id="signout" >Sign-out </button>
-
-            
-
-
-            </div>
-                <div class="card" style="width: 18rem;">
+              <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
+                    <div class="card" style="width: 30rem; height:30rem;" id="maps">
+                    {{!-- <img class="card-img-top" src="#" alt="Card image cap">
                     <div class="card-body">
-                    <h5 class="card-title">Shouts Around you</h5>
+                    
+                        <h5 class="card-title">Map Sits here</h5>
+                        <p class="card-text">some text</p>
+                        <a href="#" class="btn btn-primary">zoomIn/out</a>
+                    </div> --}}
+                    </div>
+                    <div id="label">
+                        {{#each allShouts}} 
+                            {{this.body}}           
+                        {{/each}}
+                    </div>
+                </div>
+                {{!-- <div class="col-md-1"></div> --}}
+                <div class="col-md-4">
+                    <div class="row">
+                        <form class="form-inline" id="todo-form">
+                            <input type="text" class="form-control mb-2 mr-sm-2" id="shoutInput" placeholder="Shout something here">
+
+                            <button type="submit" class="btn btn-primary todo-btn" id="shout">Shout!</button>
+                        </form>
+                        <button type="submit" class="btn btn-primary todo-btn" id="see-shouts">See Your Shouts!</button>  
+                        <button id="signout" >Sign-out </button>
+                    </div>
+                    <div class="row">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                            <h5 class="card-title">Shouts Around you</h5>
+                            {{#each allShouts}} 
+                                <div class="alert alert-primary" role="alert">
+                                    <a href="#" id="username" data-type="text" data-placement="right" data-title="Enter username">{{this.body}}</a>
+        {{!-- popover --}}
+                                    {{!-- <a href="#" id="username" data-type="text" data-placement="right" data-title="Enter username">superuser</a> --}}
+        {{!-- end of popover  --}}                                                     
+                                    <button class="btn btn-success stat-btn" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
+                                        {{#if this.status}}Update{{else}}Join{{/if}}
+                                    </button>
+                                    <br>
+                                    By: {{this.Users.0.name}}
+                                    <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
+                                </div>
+                            {{/each}}                   
+                            </div>
+
+<h5 class="card-title">Shouts Around you</h5>
                     {{#each allShouts}} 
                         <div class="alert alert-primary" role="alert">
                             {{this.body}}
@@ -60,12 +106,15 @@
 
 
                         </div>
-                    {{/each}}                   
+                    </div>
                 </div>
+                <div class="col-md-1"></div>
             </div>
+        
         </div>
-    </div>
+    {{!-- </div> --}}
 </div>
+
 
 {{!-- would be cool if we can automatically load the shouts on the map based on the zoomIn/out --}}
 {{!-- =======takes the current location and post their shout on the icon --}}
