@@ -6,14 +6,19 @@
                 <h5 class="card-title">{{all.name}}, here are your shouts!</h5>
                 {{#each all.Shouts}} 
                     <div class="alert alert-primary" role="alert">
-                        <input type="text" name="firstname" placeholder="{{this.body}}"><br>
+                        {{!-- <form > --}}
+                            <input class="updateShout{{this.id}}" data-id="{{this.id}}" type="text" name="firstname" placeholder="{{this.body}}"><br>
 
-                        <br>
-                        By: {{all.name}}
-                    
-                        <button class="btn btn-success update-btn" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>Update</button>
+                            <br>
+                            By: {{all.name}}
+                            <br>
+
+                        
+                            <button  class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button>
+
+                            {{!-- <button type="submit" class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button> --}}
+                        {{!-- </form> --}}
                         <button class="btn btn-success del-btn" data-id="{{this.id}}">Del</button>
-                        {{!-- <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button> --}}
                     </div>
                     <footer class="blockquote-footer">
                         <small class="text-muted">

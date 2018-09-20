@@ -120,14 +120,14 @@ $(document).ready(function(){
 
     //~~~~~~~~~~~~~~ Nasib
     //when clicking on stat button: false --> text is join  /true ---> text is update
-    // when a user wants to join someone elses shout: if the btn is set to join, by clicking on it it should toggle to update and increase the shout count by 1
-    $('.stat-btn').on('click', function(event){
+    $('.update-btn').on('click', function(event){
         
         var updateShout = {};
         // var status = $(this).attr('data-stat');
         var id = $(this).attr('data-id');
-        var count = $(this).attr('data-count');
-
+        console.log(id);
+        var value = $(".updateShout" + id).val();
+        console.log("value: " + value)
         // if stat = false meaning the user hasn't joined this shout yet
         // we get the shout id, update the count of that shout, and reload the page
         if (status === "false") {
@@ -139,7 +139,7 @@ $(document).ready(function(){
         } // else: meaning that user has already belongs to this shout , and the label is set to update 
         else {
             // we update the body 
-            var body = "new text";
+            var body = value;
             updateShout = {
                 body : body
             };
@@ -155,6 +155,12 @@ $(document).ready(function(){
     
     });
 
+    // when a user wants to join someone elses shout: if the btn is set to join, by clicking on it it should disapear and count goes up by 1
+    $('.join-btn').on('click', function(event){
+
+
+
+    });
 
     $('.del-btn').on('click', function(event){
         var id = $(this).attr('data-id');
@@ -246,7 +252,7 @@ function onSignIn(googleUser) {
 }
 // Home button on click function
 $(document).on('click', '.home-btn', function(event){
-    window.location.href = "/shouts";
+    window.location.href = "/shouts/" + getUserId();
 });
 
 // Sign out function

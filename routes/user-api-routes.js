@@ -26,6 +26,7 @@ module.exports = function(app){
       include: [db.Shout]
     }).then(function(dbUser){
       // res.json(dbUser);
+      dbUser.Shouts = dbUser.Shouts.reverse();
       res.render("myprofile", {all:dbUser});
     });
   });
