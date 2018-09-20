@@ -29,7 +29,7 @@ module.exports = function(app){
       dbUser.Shouts = dbUser.Shouts.reverse();
       res.render("myprofile", {all:dbUser});
     });
-  });
+  }); 
   
   // Gets JSON of users and shouts
   app.get("/api/users/:id", function(req,res){
