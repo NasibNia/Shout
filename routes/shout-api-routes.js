@@ -15,9 +15,6 @@ module.exports = function(app){
                 ['updatedAt', 'DESC']
             ]
         }).then(function(dbShout){
-            // console.log("yayyyyyyyyyyyyyyyyyyyyyyyyyy\n\n");
-            // console.log("dbShout is " , dbShout);
-            // res.json(dbShout);
             console.log(dbShout.length);
             for (var i = 0; i < dbShout.length; i++) {
                 dbShout[i].time = moment(dbShout[i].updatedAt).fromNow();
@@ -34,7 +31,6 @@ module.exports = function(app){
 
             }
             
-
             // res.json(dbShout.reverse());
             res.render("map" , {allShouts : dbShout});
         });
@@ -102,6 +98,18 @@ module.exports = function(app){
             });
         });          
     });
+
+    app.post("/shouts/:shoutId/:userId", function(req, res){
+
+            db.UserShout.create({
+                UserId : req.params.userId,
+                ShoutId : req.params.shoutId
+            }).then(function(pair){
+                res.json(pair); 
+            });          
+    });
+    
+
 
     // update a specific shout
     app.put("/shouts/:id" , function(req,res){

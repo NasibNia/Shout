@@ -152,7 +152,17 @@ $(document).ready(function(){
 
     // when a user wants to join someone elses shout: if the btn is set to join, by clicking on it it should disapear and count goes up by 1
     $('.join-btn').on('click', function(event){
+        var shoutId =  $(this).attr('data-id');
+        var userId =getUserId();
 
+
+        $.ajax({
+            method : "POST",
+            url : "/shouts/" + shoutId + "/"+ userId,
+        }).then(function(result){
+            console.log("shout joined!");
+            location.reload();
+        });
 
 
     });
