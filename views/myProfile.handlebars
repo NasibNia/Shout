@@ -1,43 +1,42 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                <h5 class="card-title">{{all.name}}, here are your shouts!</h5>
-                {{#each all.Shouts}} 
-                    <div class="alert alert-primary" role="alert">
-                        {{!-- <form > --}}
-                            <input class="updateShout{{this.id}}" data-id="{{this.id}}" type="text" name="firstname" placeholder="{{this.body}}"><br>
-
-                            <br>
-                            By: {{all.name}}
-                            <br>
-
-                        
-                            <button  class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button>
-
-                            <button type="submit" class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button> 
-                        {{!-- </form>
-                        <button class="btn btn-success del-btn" data-id="{{this.id}}">Del</button>
+<div class="container-fluid" >
+    <div class="row" id="map-page-header"></div>
+    <div id="gradient" class="parallax">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#"></a>
+        </nav>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title">{{all.name}}, here are your shouts!</h5>
+                    {{#each all.Shouts}} 
+                        <div class="alert alert-primary" role="alert">
+                            {{!-- <form > --}}
+                                <input class="updateShout{{this.id}}" data-id="{{this.id}}" type="text" name="firstname" placeholder="{{this.body}}"><br>
+                                <br>                            
+                                <button  class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button>
+ 
+                            </form>
+                            <button class="btn btn-success del-btn" data-id="{{this.id}}">Del</button>
+                        </div>
+                    
+                    {{/each}}                   
                     </div>
-                    <footer class="blockquote-footer">
-                        <small class="text-muted">
-                        
-                        </small>
-                    </footer>
-                {{/each}}                   
+                </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="row" id="pic-div"><img src="{{all.imgUrl}}" alt="image profile"></div>
-            <div class="row" >
-            <button class="btn btn-primary" id="leave" data-id="">Leave the App</button>
-            
-            <button class="btn btn-primary home-btn" >Home</button>
-            </div>
-            <div class="row" id="AboutMe-div"></div>
-            <a id="signout" href="">Sign-out</a>
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+                <div class="row" id="pic-div"><img src="{{all.imgUrl}}" alt="image profile"></div>
+                <div class="row" >
+                <button class="btn btn-primary" id="leave" data-id="">Leave the App</button>
+                
+                <button class="btn btn-primary home-btn" >Home</button>
+                </div>
+                <div class="row" id="AboutMe-div"></div>
+                <a id="signout" href="">Sign-out</a>
 
+            </div>
         </div>
     </div>
 </div>
