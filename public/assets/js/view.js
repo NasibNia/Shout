@@ -5,10 +5,9 @@ var userInfo = {
     id : localStorage.getItem("id")
 
 };
-if (userInfo.name) {
-    console.log(userInfo)
 
-}
+
+
 
 $(document).ready(function(){
     //toggle `popup` / `inline` mode
@@ -27,7 +26,6 @@ $(document).ready(function(){
     
 
 
-    var loggedIn = false;
     var usernameInput;
     var passwordInput;
     var currentUserId=-1;
@@ -36,7 +34,6 @@ $(document).ready(function(){
         // event.preventDefault();
         $.get("/shouts" , function(data){
             console.log(data);
-
         })
     });
 
@@ -50,7 +47,7 @@ $(document).ready(function(){
     $(document).on('submit','#todo-form' ,function(event){
 
         event.preventDefault();
- 
+        if (getUserId()){
             var newShout = {
                 UserId : getUserId(),
                 body : $('#shoutInput').val().trim(),
@@ -70,47 +67,51 @@ $(document).ready(function(){
                 location.reload();
 
             });
-    
+        } else {
+            alert("User not logged in.")
+        }
     });
 
     $('#see-shouts').on('click', function(event){
-        var id = getUserId();
-        window.location.href = "/users/" + id;
-        // $.get("/shouts/" + id, function(results) {
-        //     console.log("getting shouts from userID: " + id)
-        // }).then(function(data){
-        //     window.location.href = "/myprofile";
-        // })
+        if (getUserId()) {
+            var id = getUserId();
+            window.location.href = "/users/" + id;
+            // $.get("/shouts/" + id, function(results) {
+            //     console.log("getting shouts from userID: " + id)
+            // }).then(function(data){
+            //     window.location.href = "/myprofile";
+            // })
 
-
-        
+        } else {
+            alert("User not logged in.")
+        }        
     });
 
-    function makeNewShout(newShout){
+    // function makeNewShout(newShout){
 
-    }
+    // }
 
-    function getUsers(){
-        $.get("/api/users",function(results) {
-            console.log("all users info from api is    " , results );
-            location.reload();
-            return results;
-        });
-    }
+    // function getUsers(){
+    //     $.get("/api/users",function(results) {
+    //         console.log("all users info from api is    " , results );
+    //         location.reload();
+    //         return results;
+    //     });
+    // }
 
-    function getShouts(id){
-        var userId = id || "";
-        if(userId){
-            userId = "/user_id="+userId;
-        }
-        console.log("userId   "+ userId);
-        $.get("/shouts"+userId,function(results) {
-            // console.log("all shouts info from api is    " , results );
+    // function getShouts(id){
+    //     var userId = id || "";
+    //     if(userId){
+    //         userId = "/user_id="+userId;
+    //     }
+    //     console.log("userId   "+ userId);
+    //     $.get("/shouts"+userId,function(results) {
+    //         // console.log("all shouts info from api is    " , results );
             
-            // return results;
-        });
-        window.location.href = "/shouts";
-    }
+    //         // return results;
+    //     });
+    //     window.location.href = "/shouts";
+    // }
 
     function getUserId() {
         return userInfo.id;
@@ -120,30 +121,30 @@ $(document).ready(function(){
 
     //~~~~~~~~~~~~~~ Nasib
     //when clicking on stat button: false --> text is join  /true ---> text is update
-    // when a user wants to join someone elses shout: if the btn is set to join, by clicking on it it should toggle to update and increase the shout count by 1
-    $('.stat-btn').on('click', function(event){
+    $('.update-btn').on('click', function(event){
         
         var updateShout = {};
-        var status = $(this).attr('data-stat');
+        // var status = $(this).attr('data-stat');
         var id = $(this).attr('data-id');
-        var count = $(this).attr('data-count');
-
+        console.log(id);
+        var value = $(".updateShout" + id).val();
+        console.log("value: " + value)
         // if stat = false meaning the user hasn't joined this shout yet
         // we get the shout id, update the count of that shout, and reload the page
         if (status === "false") {
             // we update the count and status
             updateShout = {
-                count : parseInt(count)+1,
-                status : true
+                count : parseInt(count) + 1,
+                // status : true
             };
         } // else: meaning that user has already belongs to this shout , and the label is set to update 
         else {
             // we update the body 
-            var body = "new text";
+            var body = value;
             updateShout = {
                 body : body
             };
-        }
+        } // need to update count here and relationship table
         $.ajax({
             method : "PUT",
             url : "/shouts/" + id,
@@ -155,6 +156,12 @@ $(document).ready(function(){
     
     });
 
+    // when a user wants to join someone elses shout: if the btn is set to join, by clicking on it it should disapear and count goes up by 1
+    $('.join-btn').on('click', function(event){
+
+
+
+    });
 
     $('.del-btn').on('click', function(event){
         var id = $(this).attr('data-id');
@@ -215,7 +222,7 @@ function onSignIn(googleUser) {
                 localStorage.setItem("id", results[i].id);
                 gapi.auth2.getAuthInstance().signOut()
 
-                window.location.href = "/shouts";
+                window.location.href = "/shouts/" + userInfo.id;
             }
         }
         console.log(userInfo)
@@ -231,8 +238,9 @@ function onSignIn(googleUser) {
             localStorage.setItem("id", data.id);
             gapi.auth2.getAuthInstance().signOut();
 
-            window.location.href = "/shouts";
-        }); 
+
+            window.location.href = "/shouts/" + data.id;
+        }) 
     }
     });
         // gapi.auth2.getAuthInstance().signOut()
@@ -246,7 +254,7 @@ function onSignIn(googleUser) {
 }
 // Home button on click function
 $(document).on('click', '.home-btn', function(event){
-    window.location.href = "/shouts";
+    window.location.href = "/shouts/" + getUserId();
 });
 
 // Sign out function
