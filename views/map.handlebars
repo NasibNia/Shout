@@ -1,174 +1,176 @@
-<div class="container-fluid" >
+<div class="container-fluid">
     <div class="row" id="map-page-header"></div>
-        <div id="gradient" class="parallax">
-            <nav class="navbar navbar-light bg-light">
-                <a class="navbar-brand" href="#"></a>
-            </nav>
-            {{!-- <div class="container"> --}}
+    <div id="gradient" class="parallax">
+        <nav class="navbar navbar-light bg-light mb-2">
+            <a class="navbar-brand" href="#"></a>
+        </nav>
+        {{!--
+        <div class="container"> --}}
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <div class="card" style="width: 100%; height: 30rem;" id="maps"></div>
-                    
-                    </div>
+
+                </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-4">
-                    {{!-- <div class="row"> --}}
+                    {{!--
+                    <div class="row"> --}} {{!-- </div> --}}
 
-                    {{!-- </div> --}}
-                   
                     <div class="card container" style="width: 100%; border: none; background-color: rgba(4, 92, 133, 0);
 " id="shout-list">
-                         <div class="row">
-                             <div class="col-md-12">
-                                <form class="form-inline" id="todo-form" style="width:100%" >
-                                    <input type="text" class="rounded form-control ml-3 mb-2 mr-sm-2 mt-2" style="width:80%"id="shoutInput" placeholder="Shout something here">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-inline" id="todo-form" style="width:100%">
+                                    <input type="text" class="rounded form-control mr-1" style="width:70%" id="shoutInput" placeholder="Shout something here">
 
-                                    <button type="submit" class="btn btn-primary todo-btn mr-3"  id="shout">Shout!</button>
+                                    <button type="submit" class="btn btn-primary todo-btn mr-3" id="shout">Shout!</button>
+                                    <button id="signout" class="btn btn-warning">Sign-out</button>
 
                                 </form>
                             </div>
+                            {{!-- <div class="col-md-3 text-right">
+                            </div> --}}
+
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-6 text-center">
+                            </div>
+                            <div class="col-md-6 text-right">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-primary" id="shouters" role="alert">
+                            <h4 class="card-title">Shouts Around you <button type="" class="btn btn-success todo-btn btn-inline float-right"
+                                    id="see-shouts">See Your Shouts!</button>
+                            </h4>
+                        </div>
+                        {{#each allShouts}}
+
+                        <div class="alert alert-primary hvr-bounce-in" style="width: 100%" role="alert">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <button type="" class="btn btn-primary todo-btn btn-inline mr-3" id="see-shouts">See Your Shouts!</button>  
-                                    <button id="signout" class="btn btn-primary" >Sign-out </button>
+                                <div class="col-md-8">
+                                    <h5>{{this.body}}</h5>
+                                    By: {{this.owner}}
+                                    <br> {{this.time}}
+                                    <br>
 
-                                </div>
-                                <div class="col-md-6"></div>
+                                    <button class="btn btn-primary" id="{{this.count}}">{{this.count}} shouters joined.</button>
+                                    {{#unless this.status}}
+                                    <button class="btn btn-success join-btn" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
+                                        Join
+                                    </button>
+                                    {{/unless}} {{!-- </div> --}}
                             </div>
-    
-                        </div>
-                        <div class="card-body">
-                            <div class="alert alert-primary" id="shouters" role="alert">
-                                <h4 class="card-title">Shouts Around you</h4>
+                            <div class="col-md-4">
+                                <img class="cardImage rounded float-right" src={{this.image}}>
                             </div>
-                        {{#each allShouts}} 
-
-                            <div class="alert alert-primary hvr-bounce-in" style="width: 100%" role="alert">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h5>{{this.body}}</h5>
-                                        By: {{this.owner}}
-                                        <br>
-                                        {{this.time}}
-                                        <br>
-
-                                        <button class="btn btn-primary" id="{{this.count}}">{{this.count}} shouters joined.</button>
-                                        {{#unless this.status}}
-                                        <button class="btn btn-success join-btn" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
-                                            Join
-                                        </button>
-                                        {{/unless}}
-                                    {{!-- </div> --}}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <img class="cardImage rounded float-right" src={{this.image}}>
-                                    </div>
-                                </div>
-                            </div>
-                        {{/each}}                   
                         </div>
                     </div>
+                    {{/each}}
                 </div>
-                <div class="col-md-1"></div>
             </div>
         </div>
-
-        <div class="card" style="width: 18rem; display:none" >
-                <div class="card-body">
-                <h5 class="card-title">All Shouts</h5>
-                <div id="userPut">
-                {{#each allShouts}} 
-                    <div class="alert alert-primary" role="alert">
-                        <div>|</div>
-                        {{this.body}}
-                    </div>
-                {{/each}}    
-                </div>        
-            </div>
-        </div>
-
+        <div class="col-md-1"></div>
     </div>
+</div>
+
+<div class="card" style="width: 18rem; display:none">
+    <div class="card-body">
+        <h5 class="card-title">All Shouts</h5>
+        <div id="userPut">
+            {{#each allShouts}}
+            <div class="alert alert-primary" role="alert">
+                <div>|</div>
+                {{this.body}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+</div>
 </div>
 
 
 <script> 
-$("#userPut").hide();
-var allMarks = [];
+    $("#userPut").hide();
+    var allMarks = [];
 
-var labels = [];
-var c = document.getElementById("userPut");
-labels.push(c);
-var b = labels[0].innerText.split(/[|]/);
-allMarks.push(b);
-console.log(b);
+    var labels = [];
+    var c = document.getElementById("userPut");
+    labels.push(c);
+    var b = labels[0].innerText.split(/[|]/);
+    allMarks.push(b);
+    console.log(b);
 
     var map, popup, Popup;
-var map;
+    var map;
 
-function initMap() {
+    function initMap() {
 
-  var marker, i;
-navigator.geolocation.getCurrentPosition(function(position)
-{
-    pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-    };
+        var marker, i;
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
 
-     map = new google.maps.Map(document.getElementById('maps'), {
-        center: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-            },
-        zoom: 16
-    });
-    var infowindow = new google.maps.InfoWindow();
-    var infowindow1 = new google.maps.InfoWindow();
-    var icon = {
-        url: '../assets/images/marker2.png',
-        scaledSize: new google.maps.Size(80, 80),
-    };
-    var icon1 = {
-        url: 'http://maps.google.com/mapfiles/ms/micons/green-dot.png',
-        scaledSize: new google.maps.Size(60, 60),
-    };
-    allMarks.push(pos);
-    console.log(allMarks[1]);
-    for(var  i = 0; i < allMarks.length; i++)
-    {
-    var marker1 = new google.maps.Marker({
-            map: map,
-            icon: icon1,
-            position: {lat: allMarks[i].lat, lng: allMarks[i].lng},
-        }); 
-        marker1.addListener('click', function() {
-            infowindow1.setContent(b[b.length-2]);
-            infowindow1.open(map, marker1);
-        })
-    }  
-      marker = new google.maps.Marker({
-      map: map,
-      icon: icon,
-      position: {lat: pos.lat, lng: pos.lng},
-  });
-  
-   google.maps.event.addListener(marker, 'click', (function(marker, i) {
-    return function() {
-    infowindow.setContent(b[b.length-1]);
-    infowindow.open(map, marker);
-    }
-    })(marker, i));
-    setTimeout(function () {
-        marker.setMap(null);
-        delete marker;
-        
-    }, 3600000);
-    return marker;
-});
+            map = new google.maps.Map(document.getElementById('maps'), {
+                center: {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                },
+                zoom: 16
+            });
+            var infowindow = new google.maps.InfoWindow();
+            var infowindow1 = new google.maps.InfoWindow();
+            var icon = {
+                url: '../assets/images/marker2.png',
+                scaledSize: new google.maps.Size(80, 80),
+            };
+            var icon1 = {
+                url: 'http://maps.google.com/mapfiles/ms/micons/green-dot.png',
+                scaledSize: new google.maps.Size(60, 60),
+            };
+            allMarks.push(pos);
+            console.log(allMarks[1]);
+            for (var i = 0; i < allMarks.length; i++) {
+                var marker1 = new google.maps.Marker({
+                    map: map,
+                    icon: icon1,
+                    position: { lat: allMarks[i].lat, lng: allMarks[i].lng },
+                });
+                marker1.addListener('click', function () {
+                    infowindow1.setContent(b[b.length - 2]);
+                    infowindow1.open(map, marker1);
+                })
+            }
+            marker = new google.maps.Marker({
+                map: map,
+                icon: icon,
+                position: { lat: pos.lat, lng: pos.lng },
+            });
 
-} 
-    </script>
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                    infowindow.setContent(b[b.length - 1]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+            setTimeout(function () {
+                marker.setMap(null);
+                delete marker;
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCxMhwqVnzuWIkanMZKlN6nAXkn_x7YbM&callback=initMap">
+            }, 3600000);
+            return marker;
+        });
+
+    } 
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCxMhwqVnzuWIkanMZKlN6nAXkn_x7YbM&callback=initMap">
 </script>
