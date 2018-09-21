@@ -13,7 +13,7 @@ module.exports = function(sequelize , DataTypes){
         //     type : DataTypes.BOOLEAN ,
         //     defaultValue : false
         // },
-        // location : DataTypes.STRING
+        location : DataTypes.STRING,
         owner: DataTypes.STRING
 
 
