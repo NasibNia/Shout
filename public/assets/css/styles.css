@@ -36,7 +36,7 @@
 
 }
 
-#shouters{
+#shouters , #name-profile{
     background-color:#007bff;
     color : white;
   }
@@ -133,8 +133,8 @@
 
   body {
     /* background-color:red; */
-    font-family: 'Luckiest Guy', cursive; 
-}
+    font-family: 'Prompt', sans-serif;
+  }
 
 
 #jumbotron-hp{
@@ -149,7 +149,8 @@
     background-size: cover;
 
     text-align: center;
-    font-family: 'Luckiest Guy', cursive; 
+    /* font-family: 'Luckiest Guy', cursive;  */
+    font-family: 'Fredoka One', cursive;
     color: rgb(218, 109, 199);
     line-height: 40;
 
@@ -184,7 +185,23 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
 }
+
+#hdr-txt{
+  font-family: 'Luckiest Guy', cursive;
+  position: absolute;
+  top:22%;
+  left: 58%;
+}
+
+#name-tag{
+  /* font-family: 'Luckiest Guy', cursive; */
+  font-family: 'Fredoka One', cursive;
+  font-size : 30px;
+  
+}
+
 
 .hm-gradient .full-bg-img{
   background: -moz-linear-gradient(45deg, rgba(242, 34, 50, 0.5), rgba(255, 187, 54, 0.6) 100%);

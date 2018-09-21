@@ -1,5 +1,14 @@
 <div class="container-fluid">
-    <div class="row" id="map-page-header"></div>
+    <div class="row" id="map-page-header">
+
+        <div class="uk-animation-toggle uk-animation-scale-up uk-transform-origin-bottom-center text-center" id="hdr-txt">
+            <h2 class = "blinking1">Shout things around you!</h2>
+            <br>
+            <br>
+            <h2 class = "blinking2">Join Shouters around you!</h2>
+        </div>
+
+    </div>
     <div id="gradient" class="parallax">
         <nav class="navbar navbar-light bg-light mb-2">
             <a class="navbar-brand" href="#"></a>
@@ -17,8 +26,7 @@
                     {{!--
                     <div class="row"> --}} {{!-- </div> --}}
 
-                    <div class="card container" style="width: 100%; border: none; background-color: rgba(4, 92, 133, 0);
-" id="shout-list">
+                    <div class="card container" style="width: 100%; border: none; background-color: rgba(4, 92, 133, 0);" id="shout-list">
                         <div class="row">
                             <div class="col-md-12">
                                 <form class="form-inline" id="todo-form" style="width:100%">
@@ -44,7 +52,7 @@
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary" id="shouters" role="alert">
-                            <h4 class="card-title">Shouts Around you <button type="" class="btn btn-success todo-btn btn-inline float-right"
+                            <h4 class="card-title">Shouts Around you <button type="" class="btn btn-success todo-btn btn-inline float-right hvr-bounce-in"
                                     id="see-shouts">See Your Shouts!</button>
                             </h4>
                         </div>
@@ -60,7 +68,7 @@
 
                                     <button class="btn btn-primary" id="{{this.count}}">{{this.count}} shouters joined.</button>
                                     {{#unless this.status}}
-                                    <button class="btn btn-success join-btn" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
+                                    <button class="btn btn-success join-btn hvr-bounce-in" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
                                         Join
                                     </button>
                                     {{/unless}} {{!-- </div> --}}
