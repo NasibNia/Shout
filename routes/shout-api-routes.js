@@ -86,9 +86,7 @@ module.exports = function(app){
         console.log("req.body of this group is   ", req.body);
         db.Shout.create({
             body : req.body.body,
-            count : req.body.count,
-            status : req.body.status,
-            location : req.body.location
+            owner: req.body.owner
         }).then(function(dbShout){
             db.UserShout.create({
                 UserId : req.body.UserId,
