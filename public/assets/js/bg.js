@@ -16,7 +16,7 @@ var colors = new Array(
   var colorIndices = [0,1,2,3];
   
   //transition speed
-  var gradientSpeed = 0.01;
+  var gradientSpeed = 0.015;
   
   function updateGradient()
   {
@@ -58,4 +58,13 @@ var colors = new Array(
     }
   }
   setInterval(updateGradient,10);
+
+  function blinker() {
+    $('.blinking1').fadeOut(750);
+    $('.blinking1').fadeIn(750);
+
+    $('.blinking2').fadeOut(1000);
+    $('.blinking2').fadeIn(1000);
+  }
+  setInterval(blinker, 1000);
 });

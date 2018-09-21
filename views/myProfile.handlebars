@@ -1,5 +1,14 @@
 <div class="container-fluid" >
-    <div class="row" id="map-page-header"></div>
+    <div class="row" id="map-page-header">
+
+        <div class="uk-animation-toggle uk-animation-scale-up uk-transform-origin-bottom-center text-center" id="hdr-txt">
+            <h2 class = "blinking1">Welcome to your profile!</h2>
+            <br>
+            <br>
+            <h2 class = "blinking2">Manage your Shouts!</h2>
+        </div>
+
+    </div>
     <div id="gradient" class="parallax">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="#"></a>
@@ -7,36 +16,40 @@
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-4">
-                <div class="card" style="width: 100%;">
+                <div class="card" style="width: 100%;border: none; background-color: rgba(4, 92, 133, 0)">
                     <div class="card-body">
-                    <h5 class="card-title">{{all.name}}, here are your shouts!</h5>
+                    <h5 class="card-title" ><div id="name-tag">{{all.name}}</div><br>Here are your shouts!</h5>
                     {{#each all.Shouts}} 
-                    
-                        <div class="alert alert-primary" role="alert">
-                            {{!-- <form > --}}
- 
 
-                                {{#if this.isOwner}}           
-                                <input class="updateShout{{this.id}}" data-id="{{this.id}}" type="text" style="width: 100%" name="firstname" placeholder="{{this.body}}"><br>
-                                <br>                
-                                By: {{this.owner}}
-                                <br>                
-                                {{this.time}}
-                                <br>
+                        <div class="uk-animation-toggle uk-animation-scale-up uk-transform-origin-bottom-center">
+                            <div class="alert alert-primary " role="alert">
+                                {{!-- <form > --}}
+    
 
-                                <button  class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button>
- 
-                            {{!-- </form> --}}
-                            <button class="btn btn-success del-btn" data-id="{{this.id}}">Del</button>
-                            {{else}}
-                                    {{this.body}}
-                                    <br>
+                                    {{#if this.isOwner}}           
+                                    <input class="updateShout{{this.id}}" data-id="{{this.id}}" type="text" style="width: 100%" name="firstname" placeholder="{{this.body}}"><br>
+                                    <br>                
                                     By: {{this.owner}}
-                                    <br>
+                                    <br>                
                                     {{this.time}}
-                            {{/if}}
+                                    <br>
 
+                                    <button  class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button>
+    
+                                {{!-- </form> --}}
+                                <button class="btn btn-success del-btn" data-id="{{this.id}}">Del</button>
+                                {{else}}
+                                        {{this.body}}
+                                        <br>
+                                        By: {{this.owner}}
+                                        <br>
+                                        {{this.time}}
+                                {{/if}}
+
+                            </div>
                         </div>
+                    
+
                     {{/each}}                   
                     </div>
                 </div>
