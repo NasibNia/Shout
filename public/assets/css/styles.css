@@ -40,6 +40,9 @@
     background-color:#007bff;
     color : white;
   }
+  #shouters{
+    font-size: 10px;
+  }
 
 /* .alert{
   position: relative;
