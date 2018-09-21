@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes){
             //     }
             // }
         },
-        imgUrl : DataTypes.STRING
+        imgUrl : DataTypes.STRING,
     //     {
     //     instanceMethods: {
     //       generateHash: function (password) {

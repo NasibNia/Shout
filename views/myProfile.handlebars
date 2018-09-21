@@ -11,14 +11,18 @@
                     <div class="card-body">
                     <h5 class="card-title">{{all.name}}, here are your shouts!</h5>
                     {{#each all.Shouts}} 
+                    
                         <div class="alert alert-primary" role="alert">
                             {{!-- <form > --}}
                                 <input class="updateShout{{this.id}}" data-id="{{this.id}}" type="text" name="firstname" placeholder="{{this.body}}"><br>
-                                <br>                            
+                                <br>   
+
+                                {{#if this.isOwner}}                         
                                 <button  class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button>
  
                             </form>
                             <button class="btn btn-success del-btn" data-id="{{this.id}}">Del</button>
+                            {{/if}}
                         </div>
                     {{/each}}                   
                     </div>
