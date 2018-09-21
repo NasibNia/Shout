@@ -14,31 +14,57 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-4">
                     {{!-- <div class="row"> --}}
-                        <form class="form-inline" id="todo-form">
-                            <input type="text" class="form-control mb-2 mr-sm-2" id="shoutInput" placeholder="Shout something here">
 
-                            <button type="submit" class="btn btn-primary todo-btn" id="shout">Shout!</button>
-                        </form>
-                        <button type="submit" class="btn btn-primary todo-btn" id="see-shouts">See Your Shouts!</button>  
-                        <button id="signout" >Sign-out </button>
                     {{!-- </div> --}}
-                    <div class="card container" style="width: 30rem;" id="shout-list">
+                   
+                    <div class="card container" style="width: 100%; border: none; background-color: rgba(4, 92, 133, 0);
+" id="shout-list">
+                         <div class="row">
+                             <div class="col-md-12">
+                                <form class="form-inline" id="todo-form" style="width:100%" >
+                                    <input type="text" class="rounded form-control ml-3 mb-2 mr-sm-2 mt-2" style="width:80%"id="shoutInput" placeholder="Shout something here">
+
+                                    <button type="submit" class="btn btn-primary todo-btn mr-3"  id="shout">Shout!</button>
+
+                                </form>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="" class="btn btn-primary todo-btn btn-inline mr-3" id="see-shouts">See Your Shouts!</button>  
+                                    <button id="signout" class="btn btn-primary" >Sign-out </button>
+
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+    
+                        </div>
                         <div class="card-body">
-                        <h5 class="card-title">Shouts Around you</h5>
+                            <div class="alert alert-primary" id="shouters" role="alert">
+                                <h4 class="card-title">Shouts Around you</h4>
+                            </div>
                         {{#each allShouts}} 
-                            <div class="alert alert-primary" role="alert">
-                                {{this.body}}
-                                <br>
-                                By: {{this.owner}}
-                                <br>
-                                {{this.time}}
-                                <br>
-                                <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
-                                {{#unless this.status}}
-                                <button class="btn btn-success join-btn" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
-                                    Join
-                                </button>
-                                {{/unless}}
+
+                            <div class="alert alert-primary hvr-bounce-in" style="width: 100%" role="alert">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5>{{this.body}}</h5>
+                                        By: {{this.owner}}
+                                        <br>
+                                        {{this.time}}
+                                        <br>
+
+                                        <button class="btn btn-primary" id="{{this.count}}">{{this.count}} shouters joined.</button>
+                                        {{#unless this.status}}
+                                        <button class="btn btn-success join-btn" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
+                                            Join
+                                        </button>
+                                        {{/unless}}
+                                    {{!-- </div> --}}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img class="cardImage rounded float-right" src={{this.image}}>
+                                    </div>
+                                </div>
                             </div>
                         {{/each}}                   
                         </div>

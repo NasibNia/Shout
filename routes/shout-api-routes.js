@@ -87,7 +87,8 @@ module.exports = function(app){
         db.Shout.create({
             body : req.body.body,
             owner: req.body.owner,
-            location: req.body.location
+            location: req.body.location,
+            image: req.body.image,
 
         }).then(function(dbShout){
             db.UserShout.create({

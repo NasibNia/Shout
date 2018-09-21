@@ -48,7 +48,8 @@ $(document).ready(function(){
                 UserId : getUserId(),
                 body : $('#shoutInput').val().trim(),
                 owner : userInfo.name,
-                location: ""
+                location: "",
+                image: userInfo.imgUrl
             };
             console.log("new shout is " , newShout);
             

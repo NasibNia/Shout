@@ -14,7 +14,9 @@ module.exports = function(sequelize , DataTypes){
         //     defaultValue : false
         // },
         location : DataTypes.STRING,
-        owner: DataTypes.STRING
+        owner: DataTypes.STRING,
+        image : DataTypes.STRING,
+
 
 
     });
