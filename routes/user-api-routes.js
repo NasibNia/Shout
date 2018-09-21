@@ -26,7 +26,7 @@ module.exports = function(app){
       include: [db.Shout]
     }).then(function(dbUser){
       for (var i = 0 ; i < dbUser.Shouts.length ; i++){
-        if (parseInt(dbUser.Shouts[i].owner) === dbUser.id ){
+        if (dbUser.Shouts[i].owner === dbUser.name ){
           dbUser.Shouts[i].isOwner = true;
         } else{
           dbUser.Shouts[i].isOwner = false;

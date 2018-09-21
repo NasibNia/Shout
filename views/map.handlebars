@@ -29,11 +29,9 @@
                             <div class="alert alert-primary" role="alert">
                                 {{this.body}}
                                 <br>
-                                By: {{this.Users.0.name}}
+                                By: {{this.owner}}
                                 <br>
                                 {{this.time}}
-                                <br>
-                                {{this.status}}
                                 <br>
                                 <button class="btn btn-primary" id="{{this.count}}">{{this.count}}</button>
                                 {{#unless this.status}}

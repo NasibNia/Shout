@@ -47,7 +47,7 @@ $(document).ready(function(){
             var newShout = {
                 UserId : getUserId(),
                 body : $('#shoutInput').val().trim(),
-                owner : getUserId(),
+                owner : userInfo.name,
                 location: ""
             };
             console.log("new shout is " , newShout);
