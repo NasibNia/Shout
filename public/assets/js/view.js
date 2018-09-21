@@ -244,6 +244,7 @@ function onSignIn(googleUser) {
 // Home button on click function
 $(document).on('click', '.back-btn', function(event){
     window.location.href = "/shouts/" + getUserId();
+    window.scroll(0,-1000);
 });
 
 // Sign out function
