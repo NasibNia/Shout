@@ -79,7 +79,7 @@ The very initial wireframe looked like this
 
 ![design](public/assets/images/Screen3.jpg)
 
-And as the code evolved turned into three different pages; welcome page, main page , and profile page. The two latter ones are created through handlebars. The server listens for the request made by the client side, does the set of appropriate actions and renders the responses back to the page through handlebars.
+And as the code evolved turned into three different pages; welcome page, main page , and profile page, each of which are created through handlebars. The server listens for the request made by the client side, does the set of appropriate actions and renders the responses back to the page through handlebars.
 
 
 **Tasks:** 

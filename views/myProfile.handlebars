@@ -20,23 +20,18 @@
                     <div class="card-body">
                     <h5 class="card-title" ><div id="name-tag">{{all.name}}</div><br>Here are your shouts!</h5>
                     {{#each all.Shouts}} 
-
                         <div class="uk-animation-toggle uk-animation-scale-up uk-transform-origin-bottom-center">
                             <div class="alert alert-primary " role="alert">
-                                {{!-- <form > --}}
-    
 
-                                    {{#if this.isOwner}}           
-                                    <input class="updateShout{{this.id}}" data-id="{{this.id}}" type="text" style="width: 100%" name="firstname" placeholder="{{this.body}}"><br>
-                                    <br>                
-                                    By: {{this.owner}}
-                                    <br>                
-                                    {{this.time}}
-                                    <br>
+                                {{#if this.isOwner}}           
+                                <input class="updateShout{{this.id}}" data-id="{{this.id}}" type="text" style="width: 100%" name="firstname" placeholder="{{this.body}}"><br>
+                                <br>                
+                                By: {{this.owner}}
+                                <br>                
+                                {{this.time}}
+                                <br>
 
-                                    <button  class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button>
-    
-                                {{!-- </form> --}}
+                                <button  class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button>
                                 <button class="btn btn-success del-btn" data-id="{{this.id}}">Del</button>
                                 {{else}}
                                         {{this.body}}
@@ -48,8 +43,6 @@
 
                             </div>
                         </div>
-                    
-
                     {{/each}}                   
                     </div>
                 </div>
