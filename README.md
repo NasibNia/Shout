@@ -4,8 +4,6 @@ This fun application is an easy way of putting events on the map in real time th
 
 ![index](public/assets/images/Screen1.png)
 
-![main](public/assets/images/Screen2.png)
-
 # Getting Started
 
 Go to the [SHOUT](https://shout-it-out.herokuapp.com/) website; and before going any further don't forget to scroll down, sit back and watch our fun shoutting animation for a while. 
