@@ -3,9 +3,8 @@ var moment = require("moment");
 
 module.exports = function(app){
     
-    // Gets all shouts from database and sends back json to render
+    // Gets all shouts from database in the json format
     app.get("/api/shouts", function(req,res){
-
         // finds all of the shouts including the information realted to
         // the users who are part of those shouts,
         // In the Descenging order of the time that they got updated
@@ -24,7 +23,7 @@ module.exports = function(app){
     
     // create new shout
     app.post("/shouts", function(req, res){
-        //create new shouts with the binformation gattered from 
+        //create new shouts in the Shout table of the database with the information gattered from 
         //the client side request including body,owner of the shout,
         //location and image
         db.Shout.create({
@@ -35,7 +34,7 @@ module.exports = function(app){
 
         }).then(function(dbShout){
             //then create a new row in the table UserShout which is the 
-            //table of relationship betwee the shouts and users
+            //table of relationship between the shouts and users
             db.UserShout.create({
                 UserId : req.body.UserId,
                 ShoutId : dbShout.dataValues.id

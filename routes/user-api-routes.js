@@ -35,9 +35,9 @@ module.exports = function(app){
   app.post("/api/users/",function(req,res){
     //add a new user : happens in login
     db.User.create(req.body).then(function(dbUser){
-      // sends back the id of new inserted object into data base
+      // sends back the results as json object
       res.json(dbUser);
-});
+    });
   });
 
   // Delete a specific user from database
