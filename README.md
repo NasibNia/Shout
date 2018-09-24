@@ -1,6 +1,6 @@
 # Shout
 
-User can use this application to notifiy(shout) events that are happening in their area. If there is accident near by or free concert a couple blocks down, then user can shout this experience to have it be seen by everyone. A app for displaying live events happening around you as you continue the day. 
+This fun application is an easy way of putting events on the map in real time through the crowdsource. And that's right; we named it Shout; to shout the events around you and invite others to join the crowd. Whether there is an accident near by or a free concert happening couple blocks down, the user can shout this experience to have it be seen by everyone.  
 
 ![index](public/assets/images/Screen1.png)
 
@@ -8,24 +8,31 @@ User can use this application to notifiy(shout) events that are happening in the
 
 # Getting Started
 
-You can find the site here 
+Go to the [SHOUT](https://shout-it-out.herokuapp.com/) website; and before going any further don't forget to scroll down, sit back and watch our fun shoutting animation for a while. 
 
-[Shout](https://shout-it-out.herokuapp.com/)
+![shout](public/assets/images/shout.gif)
 
-[Github](https://github.com/NasibNia/Shout)
+By clicking on the sign in button you will be automatically directed to google sign in page, in which you can choose your google account and sign in. 
+You'll be automatically directed to the main shout page. 
+
+![mainPage](public/assets/images/mapPage.gif)
+
+In this page you can shout the events that are happening around you Or see the ones from other shouters and join those that interest you. The shouts' locations are supposed to show on the map on the right hand side and listed on the left.
+
+![seeShouts](public/assets/images/seeShouts.gif)
+
+You can also navigate to your profile page by clicking the "Your Shouts!" button. In this page you can see the list of your shouts, or the shouts that you joined. you can delete and update the shouts that you originally made.
+
+![profilePage](public/assets/images/profile.gif)
+
 
 ### Prerequisites
 
-You can access this site from any internet browser including: 
-
-
-[Google Chrome](https://www.google.com/chrome/)
-
-[Firefox](https://www.mozilla.org/en-US/firefox/new/)
+You can access this site from any internet browser including: [Google Chrome](https://www.google.com/chrome/), [Firefox](https://www.mozilla.org/en-US/firefox/new/), or [safari](https://www.apple.com/safari/). Although, regardless of the browser you use, you would still need a google account since our authentication process happens through the google.
 
 ## Deployment
 
-The site is deployed through [Shout](https://shout-it-out.herokuapp.com/) for the public to view and includes a [Github](https://github.com/NasibNia/Shout) for the code that makes the site.
+The site is deployed through [heroku](https://shout-it-out.herokuapp.com/), and uses the "JawsDB MySQL" to manage the database in real time. All the information regarding users and the shouts and their relationship is stored, accessed and updated thorugh this database.
 
 ## Built With
 
@@ -67,27 +74,41 @@ The site is deployed through [Shout](https://shout-it-out.herokuapp.com/) for th
 
 ## Our Process
 
-**Brainstorming:**
-First brainstormed about the project and what ideas would be useful with the materials we learned. Originally, we thought of multiple versions including a real life area game and scavenger hunt, but both of those link back the basic Shout idea. Which includes have user report events at real time and then display them for the public to view. 
-
-**Designing:**
-For the designing process we knew that there had to be at least two - three pages. One would be the main page where we introduce Shout with a login page and then a index page that contains the content for the website. Our final product looks fairly similar to our wireframe seen below but we removed one extra page and included the login area in the main page. 
+**WireFrame**
+The very initial wireframe looked like this 
 
 ![design](public/assets/images/Screen3.jpg)
 
-**Coding:** 
-We decided that the majority of the website was going to be the backend with handlebars displaying the content. So we divided up the task with three of us working on individual minor parts and then checked each other's code before we put them in. Triple Programming with seperate folder to resolve merge issue conflicts. 
+And as the code evolved turned into three different pages; welcome page, main page , and profile page. The two latter ones are created through handlebars. The server listens for the request made by the client side, does the set of appropriate actions and renders the responses back to the page through handlebars.
+
 
 **Tasks:** 
-### [Andrew](https://github.com/atton88)
+Here is the rough scheme of our contributions to the project:
 
-Please put your tasks here 
+### [Nasib](https://github.com/NasibNia) & [Andrew](https://github.com/atton88)  
+
+We spent a considerable amount of time together as pair programmers, to build the features and fix the bugs on both client and the server side.
+
+- Front end javascript codes:
+- Server side javascript codes:
+- maintenance of deployment issues to heroku
 
 
 
-### [Nasi](https://github.com/NasibNia)
+### [Andrew](https://github.com/atton88)  
 
-Please put your tasks here 
+- Google Authentication
+- helping to style pages
+
+### [Nasib](https://github.com/NasibNia)
+
+- building the general modular scheme of the app
+- Sequelize database models and management
+- handlebars management
+- Design of the website
+    - - javascript codes for the dynamic feature styles of the page
+    - - css libraries
+    - - creating a gif for the welcome page
 
 
 ### [Muhammad](https://github.com/mawais54013)
@@ -146,8 +167,8 @@ navigator.geolocation.getCurrentPosition(function (position) {
 The code above shows that from navigator, the user current location is selected with the lat and lng. The a marker is created that will be displayed on map with a icon on that position. Additionally, I included a listener to the marker so that when the marker is clicked then a function will be run that displays the content taken from the user input. Lastly, every marker includes a timeout period which in this case is 1 hour. The marker will appear on the map for that period and then disappear until the user can make another shout. 
 
 ## Authors
+* **Nasib** - https://github.com/NasibNia
 * **Andrew** - https://github.com/atton88
-* **Nasi** - https://github.com/NasibNia
 * **Muhammad** - https://github.com/mawais54013
 
 ## Acknowledgments

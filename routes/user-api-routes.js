@@ -15,30 +15,7 @@ module.exports = function(app){
       res.json(dbUser);
     });
   });
-
-  // Get single user information with all user shouts
-  app.get("/users/:id", function(req,res){
-    // a join to include all of the users shouts 
-    db.User.findOne({
-      where : {
-        id : req.params.id
-      },
-      include: [db.Shout]
-    }).then(function(dbUser){
-      for (var i = 0 ; i < dbUser.Shouts.length ; i++){
-        if (dbUser.Shouts[i].owner === dbUser.name ){
-          dbUser.Shouts[i].isOwner = true;
-        } else{
-          dbUser.Shouts[i].isOwner = false;
-        }
-      }
-      console.log("test dbUser  ", dbUser);
-      // res.json(dbUser);
-      dbUser.Shouts = dbUser.Shouts.reverse();
-      res.render("myProfile", {all:dbUser});
-    });
-  });
-  
+ 
   // Gets JSON of users and shouts
   app.get("/api/users/:id", function(req,res){
     // a join to include all of the users shouts 
