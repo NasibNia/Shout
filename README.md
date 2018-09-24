@@ -670,7 +670,65 @@ module.exports = function(sequelize, DataTypes){
 
 ```
 
+* java script codes for the dynamic effects on the pages:
 
+This function randomly choses two colors from an array of colors which is previously provided in the page, and in the intervals of 10 mili seconds creates a linear gradient css effects from one color to another.
+
+
+```
+ //applying the gradient to the color array
+  function updateGradient()
+  {
+    
+  if ( $===undefined ) return;
+    
+  var c0_0 = colors[colorIndices[0]];
+  var c0_1 = colors[colorIndices[1]];
+  var c1_0 = colors[colorIndices[2]];
+  var c1_1 = colors[colorIndices[3]];
+  
+  var istep = 1 - step;
+  var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
+  var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
+  var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
+  var color1 = "rgb("+r1+","+g1+","+b1+")";
+  
+  var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
+  var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
+  var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
+  var color2 = "rgb("+r2+","+g2+","+b2+")";
+  
+   $('#gradient').css({
+     background: "-webkit-gradient(linear, left top, right top, from("+color1+"), to("+color2+"))"}).css({
+      background: "-moz-linear-gradient(left, "+color1+" 0%, "+color2+" 100%)"});
+    
+    step += gradientSpeed;
+    if ( step >= 1 )
+    {
+      step %= 1;
+      colorIndices[0] = colorIndices[1];
+      colorIndices[2] = colorIndices[3];
+      
+      //pick two new target color indices
+      //do not pick the same as the current one
+      colorIndices[1] = ( colorIndices[1] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
+      colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
+      
+    }
+  }
+  setInterval(updateGradient,10);
+```
+This function creates a blinking effect by useing the jquery functions of fadeIn and fadeOUt for different classes of html divs in the intervals of every 1 seconds.
+```
+function blinker() {
+    $('.blinking1').fadeOut(750);
+    $('.blinking1').fadeIn(750);
+
+    $('.blinking2').fadeOut(1000);
+    $('.blinking2').fadeIn(1000);
+  }
+  setInterval(blinker, 1000);
+```
 
 ### [Muhammad](https://github.com/mawais54013)
 
