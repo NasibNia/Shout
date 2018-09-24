@@ -67,11 +67,7 @@ The site is deployed through [heroku](https://shout-it-out.herokuapp.com/), and 
     Useful website for making animations and then we used Screencast to turn them to gifs for the opening page of the website. 
 
 ## Wireframe and Client Side Layouts
-The very initial wireframe looked like this 
-
-![design](public/assets/images/Screen3.jpg){:height="50%" width="50%"}
-
-And as the code evolved turned into three different pages; welcome page, main page , and profile page, each of which are created through handlebars. The server listens for the request made by the client side, does the set of appropriate actions and renders the responses back to the corresponding pages through handlebars.
+The layout of the application includes three different pages; welcome page, main page , and profile page, each of which are created through handlebars. The server listens for the request made by the client side, does the set of appropriate actions and renders the responses back to the corresponding pages through handlebars.
 
 
 ## Tasks:
