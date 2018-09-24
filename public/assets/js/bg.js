@@ -1,5 +1,6 @@
 $(document).ready(function(){
-var colors = new Array(
+//creating an array of colors rgd codes to randomly choosing and gradient from
+  var colors = new Array(
     [51,255,255],
     [102,178,255],
     [153,204,255],
@@ -15,13 +16,14 @@ var colors = new Array(
   // next color right
   var colorIndices = [0,1,2,3];
   
-  //transition speed
+  //transition speed from one color to another
   var gradientSpeed = 0.015;
   
+  //applying the gradient to the color array
   function updateGradient()
   {
     
-    if ( $===undefined ) return;
+  if ( $===undefined ) return;
     
   var c0_0 = colors[colorIndices[0]];
   var c0_1 = colors[colorIndices[1]];
@@ -59,6 +61,7 @@ var colors = new Array(
   }
   setInterval(updateGradient,10);
 
+  // function to create a blinking feature through fade in and out
   function blinker() {
     $('.blinking1').fadeOut(750);
     $('.blinking1').fadeIn(750);

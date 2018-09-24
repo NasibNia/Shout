@@ -3,87 +3,29 @@ var moment = require("moment");
 
 module.exports = function(app){
     
-    // Gets all shouts from database and sends back json to render
-    app.get("/shouts/:id", function(req,res){
-
-        db.Shout.findAll({
-            include : [{
-                // where: query,
-                model : db.User
-            }],
-            order: [
-                ['updatedAt', 'DESC']
-            ]
-        }).then(function(dbShout){
-            console.log(dbShout.length);
-            for (var i = 0; i < dbShout.length; i++) {
-                dbShout[i].time = moment(dbShout[i].updatedAt).fromNow();
-                dbShout[i].count = dbShout[i].Users.length;
-                for (var j = 0; j < dbShout[i].Users.length; j++) {
-                    // if user is found in the shout
-                    if (dbShout[i].Users[j].id === parseInt(req.params.id)) {
-
-                        dbShout[i].status = true;
-                    } else {
-                        dbShout[i].status = false;
-                    }
-                }
-
-            }
-            
-            // res.json(dbShout.reverse());
-            res.render("map" , {allShouts : dbShout});
-        });
-    });
-
+    // Gets all shouts from database in the json format
     app.get("/api/shouts", function(req,res){
-
+        // finds all of the shouts including the information realted to
+        // the users who are part of those shouts,
+        // In the Descenging order of the time that they got updated
         db.Shout.findAll({
             include : [{
-                // where: query,
                 model : db.User
             }],
             order: [
                 ['updatedAt', 'DESC']
             ]
         }).then(function(dbShout){
+            // and returnign them as the json object
             res.json(dbShout);
         });
     });
-
-    // gets all shouts with user id
-    // app.get("/shouts/:userid", function(req,res){
-    //     // console.log(query)
-    //     db.Shout.findAll({
-    //         where: {id:req.params.userid},
-    //             include : [{
-    //             model : db.User
-    //         }]
-    //     }).then(function(dbShout){
-    //         console.log("params\n\n");
-    //         console.log(dbShout);
-
-    //         console.log("dbShout is " , dbShout);
-    //         // res.json(dbShout);
-    //         res.render("myprofile" , {allShouts : dbShout});
-    //     });
-    // });
-    
-    // get specific shout from shoutid, 
-    // app.get("/shouts/:shoutid", function(req,res){
-    //     db.Shout.findOne({ //test this
-    //         where : {
-    //             id : req.params.id
-    //         },
-    //         include:[db.User]
-    //     }).then(function(dbShout){
-    //         res.json(dbShout);
-    //     });
-    // });
     
     // create new shout
     app.post("/shouts", function(req, res){
-        console.log("req.body of this group is   ", req.body);
+        //create new shouts in the Shout table of the database with the information gattered from 
+        //the client side request including body,owner of the shout,
+        //location and image
         db.Shout.create({
             body : req.body.body,
             owner: req.body.owner,
@@ -91,41 +33,49 @@ module.exports = function(app){
             image: req.body.image,
 
         }).then(function(dbShout){
+            //then create a new row in the table UserShout which is the 
+            //table of relationship between the shouts and users
             db.UserShout.create({
                 UserId : req.body.UserId,
                 ShoutId : dbShout.dataValues.id
             }).then(function(pair){
+                //return the newly created shout as a jason object
                 res.json(dbShout); 
             });
         });          
     });
 
     app.post("/shouts/:shoutId/:userId", function(req, res){
-
-            db.UserShout.create({
-                UserId : req.params.userId,
-                ShoutId : req.params.shoutId
-            }).then(function(pair){
-                res.json(pair); 
-            });          
+        // create a new user id relationship with a specific shout 
+        // this happens when a new user wants to join a shout
+        db.UserShout.create({
+            UserId : req.params.userId,
+            ShoutId : req.params.shoutId
+        }).then(function(pair){
+            // return the newly created realtionship as json object
+            res.json(pair); 
+        });          
     });
     
 
 
     // update a specific shout
     app.put("/shouts/:id" , function(req,res){
+        //update the body of the shout where the id is provided in the url
         db.Shout.update(
             req.body,  
             {where : {
                 id : req.params.id
             }
         }).then(function(dbShout){
+            //return the newly updated shout as json object
             res.json(dbShout);
         });
     });
 
     //delete shout
     app.delete("/shouts/:id" , function(req,res){
+        //delete the body of shout where the id is provided in the url
         db.Shout.destroy({
             where : {
                 id : req.params.id

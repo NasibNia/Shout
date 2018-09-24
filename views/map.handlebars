@@ -13,8 +13,6 @@
         <nav class="navbar navbar-light bg-light mb-2">
             <a class="navbar-brand" href="#"></a>
         </nav>
-        {{!--
-        <div class="container"> --}}
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
@@ -23,13 +21,10 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-4">
-                    {{!--
-                    <div class="row"> --}} {{!-- </div> --}}
-
                     <div class="card container" style="width: 100%; border: none; background-color: rgba(4, 92, 133, 0);" id="shout-list">
                         <div class="row">
                             <div class="col-md-12">
-                                <form class="form-inline" id="todo-form" style="width:100%">
+                                <form class="form-inline" id="shout-form" style="width:100%">
                                     <input type="text" class="rounded form-control mr-1" style="width:70%" id="shoutInput" placeholder="Shout something here">
 
                                     <button type="submit" class="btn btn-primary todo-btn mr-3" id="shout">Shout!</button>
@@ -37,9 +32,6 @@
 
                                 </form>
                             </div>
-                            {{!-- <div class="col-md-3 text-right">
-                            </div> --}}
-
                         </div>
                         <div class="row ">
                             <div class="col-md-6 text-center">
@@ -71,17 +63,17 @@
                                     <button class="btn btn-success join-btn hvr-bounce-in" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
                                         Join
                                     </button>
-                                    {{/unless}} {{!-- </div> --}}
-                            </div>
-                            <div class="col-md-4">
-                                <img class="cardImage rounded float-right" src={{this.image}}>
+                                    {{/unless}} 
+                                </div>
+                                <div class="col-md-4">
+                                    <img class="cardImage rounded float-right" src={{this.image}}>
+                                </div>
                             </div>
                         </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
                 </div>
             </div>
-        </div>
         <div class="col-md-1"></div>
     </div>
 </div>
@@ -103,7 +95,7 @@
 </div>
 </div>
 
-
+{{!-- Muhammad's script --}}
 <script> 
     $("#userPut").hide();
     var allMarks = [];

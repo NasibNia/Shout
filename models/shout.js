@@ -5,20 +5,12 @@ module.exports = function(sequelize , DataTypes){
             allowNull : false,
             len:{
                 args : [0,200],
-                msg : 'Name is too long'
+                msg : 'text is too long'
                 }
         },
-        // count : DataTypes.INTEGER,
-        // status :{
-        //     type : DataTypes.BOOLEAN ,
-        //     defaultValue : false
-        // },
         location : DataTypes.STRING,
         owner: DataTypes.STRING,
         image : DataTypes.STRING,
-
-
-
     });
 
     Shout.associate = function(models){
