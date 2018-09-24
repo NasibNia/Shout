@@ -370,68 +370,60 @@ This block of the code is the server side route to create a new user based on th
 
 - Google Authentication
 
-This block of code shows what happens during google sign in authentication
+This block of code shows what happens during google sign in authentication. 
+- It first clears the local storage
+- Then signs the user into google, creates user if not in database, stores local variables
+- It getts the profile information from google
+- stores the information on local storage to be able to check later on whether the user has already signed in or not
+- Then, it makes a get call to the users api to get the list of all users
+- -  and finds out wether the user's email already exists in the database of our currently signed in users
+- - If yes, that means the user already exists: ==> gets the id of the user and update the id in the local storage to that id, and ends the authentication process, and redirects the window to the shouts/userId page
+- - If not, creates a new user with the info collected from google profile of the user, and makes an ajax call to the api/users to add the user to the list of currently signed in users. Sets the id of the user to the local stroage, and ends the authentication process, and redirects the window to the shouts/userId page.
 
 ```
-// Signs in user to google, creates user if not in database, stores local variables
+
 function onSignIn(googleUser) {
     localStorage.clear();
-
-    // getting the profile information from google
     var profile = googleUser.getBasicProfile();
 
-    // storing the information on local storage to be able to check later on whether the user has already signed in or not
     localStorage.setItem("name", profile.getName());
     localStorage.setItem("email", profile.getEmail());
     localStorage.setItem("imgUrl", profile.getImageUrl());
 
 
     var email = localStorage.getItem("email");
-    //getting the list of all the users in the database
     $.get("/api/users/", function(results){
-        // set the boolean value found to false
         var found = false;
         for (var i = 0; i < results.length; i++){
-            //if the user's email already exists in the database of our currently signed in users
             if (results[i].email === email) {
-
-                // user already exists:
                 found = true;
-                //get the id of the user and update the id in the local storage to that id
                 userInfo.id = results[i].id;
                 localStorage.setItem("id", results[i].id);
-                //end of authentication process
                 gapi.auth2.getAuthInstance().signOut();
-                //redirect the window to the shouts/userId page
                 window.location.href = "/shouts/" + userInfo.id;
             }
         }
-        // if the user is not found in the list of currently signed in users
         if (!found) {
-            //creating a new user with the info collected from google profile of the user
             var newUser = {
                 name: localStorage.getItem("name"), 
                 email: localStorage.getItem("email"), 
                 imgUrl: localStorage.getItem("imgUrl"), 
             };
-        // make an ajax call to the api/users to add the user to the list of currently signed in users
         $.post("api/users", newUser, function(data) {
-            //setting the id of the user to the local stroage
             localStorage.setItem("id", data.id);
-            // end of authentication process
             gapi.auth2.getAuthInstance().signOut();
-            // redirecting the window to the shouts/userId
             window.location.href = "/shouts/" + data.id;
         });
     }
 });
 ```
 
-- helping to style pages
+- helping to style the pages
 
 ### [Nasib](https://github.com/NasibNia)
 
 - building the general modular scheme of the app
+
 - Sequelize database models and management
 - handlebars management
 - Design of the website
