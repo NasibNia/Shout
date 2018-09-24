@@ -64,18 +64,14 @@ The site is deployed through [heroku](https://shout-it-out.herokuapp.com/), and 
 
     Cool CSS Library we used to organize everything and assist in the animation. 
 
-* [UIkit](https://getuikit.com/)
-
-    Cool CSS Library we used to organize everything and assist in the animation. 
-
 * [Animaker](https://www.animaker.com/)
 
     Useful website for making animations and then we used Screencast to turn them to gifs for the opening page of the website. 
 
-## Wireframe and Client Side Page
+## Wireframe and Client Side Layouts
 The very initial wireframe looked like this 
 
-![design](public/assets/images/Screen3.jpg)
+![design](public/assets/images/Screen3.jpg| width=100)
 
 And as the code evolved turned into three different pages; welcome page, main page , and profile page, each of which are created through handlebars. The server listens for the request made by the client side, does the set of appropriate actions and renders the responses back to the corresponding pages through handlebars.
 
@@ -91,9 +87,9 @@ We spent a considerable amount of time together as pair programmers, to build th
 - Server side javascript codes:
 - handling handlebars
 
-##### Some of our Code Snippets
+#### Some of our Code Snippets
 
-* Client Side codes:
+**Client Side codes:**
 
 This block of the code shows the what happens when a new shout is being made by a specific user who is already logged in through google authentication
 - A new shout object is being made and populated by collecting the info from the google login and the body of shout made in the shout form
@@ -175,7 +171,7 @@ $('.del-btn').on('click', function(event){
     });
 });
 ```
-* Server Side codes:
+**Server Side codes:**
 
 This block of code renders the right information on the profile page. It works with the id of the user in the route and finds that specific user and includes the shouts information.
 - It then, goes through all the shouts and check if the name of the user is the same as owner of that specific shout.
@@ -368,7 +364,7 @@ This block of the code is the server side route to create a new user based on th
   });
 ```
 
-* handlebars:
+**handlebars:**
 
 Welcome Page handlebar:
 ```
@@ -453,7 +449,7 @@ This block of the handlebar shows how the shouts are rendered in the profile pag
 - Google Authentication
 - helping to style the pages
 
-##### Some Code Snippets
+#### Some Code Snippets
 
 This block of code shows what happens during google sign in authentication. 
 - It first clears the local storage
