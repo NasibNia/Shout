@@ -93,6 +93,8 @@ We spent a considerable amount of time together as pair programmers, to build th
 
 ##### Some of our Code Snippets
 
+* Client Side codes:
+
 This block of the code shows the what happens when a new shout is being made by a specific user who is already logged in through google authentication
 - A new shout object is being made and populated by collecting the info from the google login and the body of shout made in the shout form
 - It, then , makes an ajax call to the server to post the shout
@@ -173,6 +175,7 @@ $('.del-btn').on('click', function(event){
     });
 });
 ```
+* Server Side codes:
 
 This block of code renders the right information on the profile page. It works with the id of the user in the route and finds that specific user and includes the shouts information.
 - It then, goes through all the shouts and check if the name of the user is the same as owner of that specific shout.
@@ -365,10 +368,92 @@ This block of the code is the server side route to create a new user based on th
   });
 ```
 
+* handlebars:
+
+Welcome Page handlebar:
+```
+<div class="jumbotron-container " id="jumbotron-hp">
+    <h1 class="display-2 title bouncing">SHOUT</h1>
+    <hr>
+    <p class="lead rubberband text-center">Scroll down</p>
+</div>
+
+<div id="parallax"></div>
+
+<button class="btn btn-primary bouncing" id="start">Let's Shout!</button>
+<div id="goog" class="g-signin2" data-onsuccess="onSignIn"></div>
+```
+
+* Shouts page handlebar
+This part is a small peices showing how the shout appears on the page: it will include the information about the body of the shout, the owner and its time of update from now.
+All these information are available in the allShouts object that server sends to the page upon hitting a specific route of /shouts/:id
+
+The code also shows how the Join button will appear on the page depending on the status of the each shout in the allShouts object
+```
+{{#each allShouts}}
+    <div class="alert alert-primary hvr-bounce-in" style="width: 100%" role="alert">
+        <div class="row">
+            <div class="col-md-8">
+                <h5>{{this.body}}</h5>
+                By: {{this.owner}}
+                <br> {{this.time}}
+                <br>
+
+                <button class="btn btn-primary" id="{{this.count}}">{{this.count}} shouters joined.</button>
+                {{#unless this.status}}
+                <button class="btn btn-success join-btn hvr-bounce-in" data-id="{{this.id}}" data-body="{{this.body}}" data-count={{this.count}} data-stat={{this.status}}>
+                    Join
+                </button>
+                {{/unless}} 
+            </div>
+            <div class="col-md-4">
+                <img class="cardImage rounded float-right" src={{this.image}}>
+            </div>
+        </div>
+    </div>
+{{/each}}
+```
+* Users page handlebar
+
+This block of the handlebar shows how the shouts are rendered in the profile page:
+- first, the name is taken from the name key of the all object which is sent to the handlebar by server upon hitting a specific route of /users/:id
+- It also, goes through all the shouts in the "all" object, and for each of them checks whether the value of isOwner is true or false:
+- - if the current user is the owner of the shout, it creates an input field with the placeholder of shout's body , and update and delete buttons
+- - if not, it only shows the body of the shout without the rights to delete or update them.
+```
+<h5 class="card-title" ><div id="name-tag">{{all.name}}</div><br>Here are your shouts!</h5>
+{{#each all.Shouts}} 
+    <div class="uk-animation-toggle uk-animation-scale-up uk-transform-origin-bottom-center">
+        <div class="alert alert-primary " role="alert">
+
+            {{#if this.isOwner}}           
+            <input class="updateShout{{this.id}}" data-id="{{this.id}}" type="text" style="width: 100%" name="firstname" placeholder="{{this.body}}"><br>
+            <br>                
+            By: {{this.owner}}
+            <br>                
+            {{this.time}}
+            <br>
+
+            <button  class="btn btn-success update-btn" data-id="{{this.id}}" >Update</button>
+            <button class="btn btn-success del-btn" data-id="{{this.id}}">Del</button>
+            {{else}}
+                    {{this.body}}
+                    <br>
+                    By: {{this.owner}}
+                    <br>
+                    {{this.time}}
+            {{/if}}
+        </div>
+    </div>
+{{/each}}  
+```
 
 ### [Andrew](https://github.com/atton88)  
 
 - Google Authentication
+- helping to style the pages
+
+##### Some Code Snippets
 
 This block of code shows what happens during google sign in authentication. 
 - It first clears the local storage
@@ -418,18 +503,173 @@ function onSignIn(googleUser) {
 });
 ```
 
-- helping to style the pages
+
 
 ### [Nasib](https://github.com/NasibNia)
 
-- building the general modular scheme of the app
 
+
+- building the general modular scheme of the app
 - Sequelize database models and management
+ - - including index.js , shout.js , user.js , and userShout.js
 - handlebars management
 - Design of the website
-    - - javascript codes for the dynamic feature styles of the page
-    - - css libraries
-    - - creating a gif for the welcome page
+    - - javascript codes for the dynamic feature of pages styles
+    - - creating css formats and using other css libraries
+    - - creating the gif for the welcome page through Animaker online application
+
+##### Some Code Snippets
+
+* server.js
+
+This code is the code which is called by node to create the server and runs the app. The list of dependencies and creation of server happens here:
+
+```
+// *** Dependencies
+// =============================================================
+var express = require("express");
+var bodyParser = require("body-parser");
+
+// Sets up the Express App
+// =============================================================
+var app = express();
+var PORT = process.env.PORT || 8080;
+
+// Requiring our models for syncing
+var db = require("./models");
+
+// Sets up the Express app to handle data parsing
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
+// Static directory
+app.use(express.static("public"));
+
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Routes
+// =============================================================
+require("./routes/html-routes.js")(app);
+require("./routes/user-api-routes.js")(app);
+require("./routes/shout-api-routes.js")(app);
+
+// Syncing our sequelize models and then starting our Express app
+// =============================================================
+db.sequelize.sync({ force: false }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});
+```
+
+* models and database:
+1.index.js
+
+The following block of the code shwos the index.js model which creates the backbone of our database
+ ```
+'use strict';
+
+var fs        = require('fs');
+var path      = require('path');
+var Sequelize = require('sequelize');
+var basename  = path.basename(module.filename);
+var env       = process.env.NODE_ENV || 'development';
+var config    = require(__dirname + '/../config/config.json')[env];
+var db        = {};
+
+if (config.use_env_variable) {
+  var sequelize = new Sequelize(process.env[config.use_env_variable]);
+} else {
+  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+
+fs
+  .readdirSync(__dirname)
+  .filter(function(file) {
+    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+  })
+  .forEach(function(file) {
+    var model = sequelize['import'](path.join(__dirname, file));
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach(function(modelName) {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;
+ ```
+2.shouts.js
+This block of the code shows the sequelize model for the Shouts table
+It also shows that each Shout belongs to many User. User model is defined in a different file with the name user.js in the same directory of models.
+```
+module.exports = function(sequelize , DataTypes){
+    var Shout = sequelize.define("Shout" , {
+        body:{
+            type: DataTypes.TEXT,
+            allowNull : false,
+            len:{
+                args : [0,200],
+                msg : 'text is too long'
+                }
+        },
+        location : DataTypes.STRING,
+        owner: DataTypes.STRING,
+        image : DataTypes.STRING,
+    });
+
+    Shout.associate = function(models){
+        Shout.belongsToMany(models.User, {through: {model : models.UserShout}});
+    };
+    return Shout;
+};
+```
+
+3.user.js:
+
+This block of the code shows the sequelize model for the Users table
+It also shows that each User belongs to many Shouts. Shouts model is defined in a different file with the name shout.js in the same directory of models.
+```
+module.exports = function(sequelize, DataTypes){
+    var User = sequelize.define("User",{
+        name : {
+            type: DataTypes.STRING
+        },
+        email: {
+            type : DataTypes.STRING
+        },
+        imgUrl : DataTypes.STRING,
+    });
+
+    User.associate = (models) => {
+        User.belongsToMany(models.Shout, {through : {model: models.UserShout}});
+    };
+    return User;
+};
+
+```
+4.userShout.js:
+
+This block of the code shows the sequelize model for the many to many association of user ids and shout ids.
+
+```
+module.exports = function(sequelize, DataTypes){
+    var UserShout = sequelize.define("UserShout",{});
+    return UserShout;
+};
+
+```
+
 
 
 ### [Muhammad](https://github.com/mawais54013)
